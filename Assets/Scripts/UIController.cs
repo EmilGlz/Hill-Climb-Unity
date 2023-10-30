@@ -32,9 +32,9 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void OpenPausePopup(Action onClose = null)
+    public void OpenPausePopup(Action onClose = null, Action onPopupShowed = null)
     {
-        PausePopup.Create(onClose);
+        PausePopup.Create(onClose, onPopupShowed);
     }
 
     private void OpenMenu(string menuName)

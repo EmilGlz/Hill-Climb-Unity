@@ -47,8 +47,11 @@ public class GameManager : MonoBehaviour
         UIController.instance.OpenPausePopup(() =>
         {
             Time.timeScale = 1f;
+        },
+        () =>
+        {
+            Time.timeScale = 0f;
         });
-        Time.timeScale = 0f;
     }
 }
 
