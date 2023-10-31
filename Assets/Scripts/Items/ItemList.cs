@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ItemList : IDisposable
+namespace Scripts.Items
 {
-    protected Transform Parent;
-    protected List<Item> Items;
-
-    public ItemList(Transform parent)
+    public class ItemList : IDisposable
     {
-        Parent = parent;
-    }
+        protected Transform Parent;
+        protected List<Item> Items;
 
-    public virtual void Dispose()
-    {
-        foreach (var item in Items)
+        public ItemList(Transform parent)
         {
-            item.Dispose();
+            Parent = parent;
+        }
+
+        public virtual void Dispose()
+        {
+            foreach (var item in Items)
+            {
+                item.Dispose();
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using Scripts.Managers;
 using UnityEngine;
 
 public static class Device 

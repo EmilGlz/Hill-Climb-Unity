@@ -6,7 +6,7 @@ public static class Settings
     {
         get
         {
-            var res =PlayerPrefs.GetInt("InfiniteFuel");
+            var res = PlayerPrefs.GetInt("InfiniteFuel");
             return res == 1;
         }
         set

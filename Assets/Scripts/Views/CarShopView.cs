@@ -1,26 +1,31 @@
+using Scripts.Items;
+using Scripts.Managers;
+using Scripts.UI;
 using UnityEngine.UI;
-
-public class CarShopView : View
+namespace Scripts.Views
 {
-    private CarItemList _carItemList;
-    public override void EnterView()
+    public class CarShopView : View
     {
-        base.EnterView();
-        var back = Utils.FindGameObject("BackButton", gameObject).GetComponent<Button>();
-        back.onClick.RemoveAllListeners();
-        back.onClick.AddListener(() =>
+        private CarItemList _carItemList;
+        public override void EnterView()
         {
-            UIController.instance.EnterView<GameView>();
-        });
-        var content = Utils.FindGameObject("Content", gameObject);
-        _carItemList = new CarItemList(ItemController.instance.CarDatas, content.transform);
-        ScrollScaleController.instance.InitItems();
-    }
+            base.EnterView();
+            var back = Utils.FindGameObject("BackButton", gameObject).GetComponent<Button>();
+            back.onClick.RemoveAllListeners();
+            back.onClick.AddListener(() =>
+            {
+                UIController.instance.EnterView<GameView>();
+            });
+            var content = Utils.FindGameObject("Content", gameObject);
+            _carItemList = new CarItemList(ItemController.instance.CarDatas, content.transform);
+            ScrollScaleController.instance.InitItems();
+        }
 
-    public override void ExitView()
-    {
-        _carItemList.Dispose();
-        _carItemList = null;
-    }
+        public override void ExitView()
+        {
+            _carItemList.Dispose();
+            _carItemList = null;
+        }
 
+    }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
-public class View : MonoBehaviour
+namespace Scripts.Views
 {
-    public virtual void EnterView()
+    public class View : MonoBehaviour
     {
+        public virtual void EnterView()
+        {
 
-    }
-    public virtual void ExitView()
-    {
+        }
+        public virtual void ExitView()
+        {
 
-    }
-    public string GetViewName()
-    {
-        return GetType().Name;
+        }
+        public string GetViewName()
+        {
+            return GetType().Name;
+        }
     }
 }

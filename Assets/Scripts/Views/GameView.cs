@@ -1,4 +1,7 @@
-public class GameView : View
+namespace Scripts.Views
 {
+    public class GameView : View
+    {
 
+    }
 }

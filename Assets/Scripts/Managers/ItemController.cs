@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ItemController : MonoBehaviour
+namespace Scripts.Managers
 {
-    #region Singleton
-    public static ItemController instance;
-    private void Awake()
+    public class ItemController : MonoBehaviour
     {
-        instance = this;
+        #region Singleton
+        public static ItemController instance;
+        private void Awake()
+        {
+            instance = this;
+        }
+        #endregion
+        public List<CarData> CarDatas;
     }
-    #endregion
-    public List<CarData> CarDatas;
 }
