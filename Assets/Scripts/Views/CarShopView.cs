@@ -17,7 +17,7 @@ namespace Scripts.Views
                 UIController.instance.EnterView<GameView>();
             });
             var content = Utils.FindGameObject("Content", gameObject);
-            _carItemList = new CarItemList(ItemController.instance.CarDatas, content.transform);
+            _carItemList = new CarItemList(ItemController.instance.userData.ownedCars, content.transform);
             ScrollScaleController.instance.InitItems();
         }
 

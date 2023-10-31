@@ -7,8 +7,7 @@ namespace Scripts.Items
         protected GameObject Instance;
         protected ScriptableObject Data;
         protected readonly Transform Parent;
-
-        protected string PrefabName => "";
+        protected virtual string PrefabName => "";
         public Item(ScriptableObject data, Transform parent)
         {
             Data = data;
@@ -20,7 +19,7 @@ namespace Scripts.Items
         {
             if (Data == null)
                 return;
-            Instance = ResourceHelper.InstantiatePrefab("Prefabs/Inventory/car-item", Parent);
+            Instance = ResourceHelper.InstantiatePrefab(PrefabName, Parent);
             Instance.transform.localScale = Vector3.one;
         }
         public virtual void Dispose()
@@ -30,6 +29,10 @@ namespace Scripts.Items
                 UnityEngine.Object.Destroy(Instance);
                 Instance = null;
             }
+        }
+
+        protected virtual void OnClick()
+        {
         }
 
     }

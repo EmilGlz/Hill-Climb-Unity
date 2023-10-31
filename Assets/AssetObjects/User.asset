@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf21ede4675a114990201e1088c1e4f, type: 3}
+  m_Name: User
+  m_EditorClassIdentifier: 
+  ownedCars:
+  - {fileID: 11400000, guid: f9671c257081882459a528029db9e9bd, type: 2}
+  - {fileID: 11400000, guid: 44f12d4001fc3e84db2a98c812068a62, type: 2}
+  - {fileID: 11400000, guid: 6d31fb46f7d47ad43b89d733b2eb7afc, type: 2}
+  - {fileID: 11400000, guid: d9fc4b333914d36469e3fc14bddafe8d, type: 2}
+  - {fileID: 11400000, guid: c5ac068181c56be4690616f6018bdef2, type: 2}
+  - {fileID: 11400000, guid: 272092a63b19dd14295fce8a8a97fa42, type: 2}
+  - {fileID: 11400000, guid: bdf65bc85ca9786449dc4f3e48d1ad0f, type: 2}
+  - {fileID: 11400000, guid: 75f8f4167dc822b4dae296752ecc9707, type: 2}
+  budget: 10000
+  currentSelectedCar: {fileID: 11400000, guid: 272092a63b19dd14295fce8a8a97fa42, type: 2}

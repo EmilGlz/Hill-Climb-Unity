@@ -15,3 +15,8 @@ MonoBehaviour:
   id: 4
   itemName: Quad Bike
   icon: {fileID: 21300000, guid: ae206eccff044d54596c79a28e03e757, type: 3}
+  level: 0
+  price: 100000
+  description: It is a long established fact that a reader will be distracted by
+    the readable content of a page when looking at its layout.
+  prefabPath: Prefabs/Cars/QuadBike

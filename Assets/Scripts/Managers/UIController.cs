@@ -1,4 +1,4 @@
-using Scripts.UI;
+using Scripts.UI.Popups;
 using Scripts.Views;
 using System;
 using TMPro;

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -5,16 +6,21 @@ namespace Scripts.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] public Transform Player;
-        public Action OnUpdate;
         public static GameManager Instance;
+        public Action OnUpdate;
+        public CinemachineVirtualCamera Camera;
         private void Awake()
         {
             Instance = this;
         }
         private void Start()
         {
-            DistanceController.Init(Player);
+            Settings.User = ItemController.instance.userData;
+            if (Settings.User == null) 
+            {
+                Settings.User = Settings.ResettedUser();
+                Settings.SaveUserData();
+            }
         }
         private void Update()
         {

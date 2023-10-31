@@ -29,9 +29,7 @@ namespace Scripts.UI
             }
             var lg = _content.GetComponent<HorizontalLayoutGroup>();
             if (lg != null)
-            {
                 lg.padding.left = lg.padding.right = (int)(Device.Width / 2f - _items[0].GetWidth() / 2f);
-            }
             UpdateItemsScale();
             // TODO Check, scale must be 1, not 0
             // And Make scrollview start from the left side

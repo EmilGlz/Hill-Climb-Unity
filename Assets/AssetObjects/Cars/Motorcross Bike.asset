@@ -15,3 +15,8 @@ MonoBehaviour:
   id: 3
   itemName: Motorcross Bike
   icon: {fileID: 21300000, guid: ab53370cf9f879349ab30b739a50f059, type: 3}
+  level: 0
+  price: 100000
+  description: It is a long established fact that a reader will be distracted by
+    the readable content of a page when looking at its layout.
+  prefabPath: Prefabs/Cars/MotorcrossBike

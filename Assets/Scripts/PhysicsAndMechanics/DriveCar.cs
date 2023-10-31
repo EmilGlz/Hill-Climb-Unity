@@ -22,6 +22,5 @@ namespace ScriptsPhysicsAndMechanics
             _backTireRB.AddTorque(-_moveInput * _speed * Time.fixedDeltaTime);
             _carRB.AddTorque(_moveInput * _rotationSpeed * Time.fixedDeltaTime);
         }
-
     }
 }

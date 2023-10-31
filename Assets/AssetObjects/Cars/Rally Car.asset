@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bc4de721662799429384fcb97eecacf, type: 3}
-  m_Name: Orange Monster
+  m_Name: Rally Car
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: Orange Monster
-  icon: {fileID: 21300000, guid: d83a74016c9ba3b48b0cea30d6951691, type: 3}
+  id: 6
+  itemName: Rally Car
+  icon: {fileID: 21300000, guid: f6b9dee3b982fef478921474087ce0b6, type: 3}
+  level: 0
+  price: 100000
+  description: It is a long established fact that a reader will be distracted by
+    the readable content of a page when looking at its layout.
+  prefabPath: Prefabs/Cars/RallyCar

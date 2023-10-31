@@ -3,7 +3,7 @@ using Scripts.Views;
 using System;
 using UnityEngine.UI;
 
-namespace Scripts.UI
+namespace Scripts.UI.Popups
 {
     public class PausePopup : Popup
     {
@@ -42,11 +42,6 @@ namespace Scripts.UI
         {
             UIController.instance.EnterView<CarShopView>();
             Dispose();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

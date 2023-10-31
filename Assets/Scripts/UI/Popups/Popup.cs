@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Scripts.Managers;
-namespace Scripts.UI
+namespace Scripts.UI.Popups
 {
     public abstract class Popup : IDisposable
     {
@@ -28,7 +28,7 @@ namespace Scripts.UI
         }
         public virtual void Dispose()
         {
-            CloseAnimation(DestroyPopup);
+            CloseAnimation();
         }
 
         protected virtual void DestroyPopup()
@@ -67,7 +67,7 @@ namespace Scripts.UI
             });
         }
 
-        private void CloseAnimation(Action callback = null)
+        private void CloseAnimation()
         {
             if (ItemTemplate == null)
                 return;
@@ -75,8 +75,8 @@ namespace Scripts.UI
             ItemTemplate.transform.localScale = Vector3.one;
             ItemTemplate.transform.DOScale(Vector3.zero, AnimationTime).OnComplete(() =>
             {
-                callback?.Invoke();
                 _onClose?.Invoke();
+                DestroyPopup();
             });
         }
     }

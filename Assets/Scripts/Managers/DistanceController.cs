@@ -18,13 +18,6 @@ namespace Scripts.Managers
             GameManager.Instance.OnUpdate += UpdateDistance;
         }
 
-        public static void Init(Transform player)
-        {
-            var menu = UIController.instance.GetMenuByName("GameCanvas");
-            var text = Utils.FindGameObject("DistanceText", menu).GetComponent<TMP_Text>();
-            var distanceController = new DistanceController(text, player);
-        }
-
         public void Dispose()
         {
             GameManager.Instance.OnUpdate -= UpdateDistance;
@@ -32,6 +25,8 @@ namespace Scripts.Managers
 
         private void UpdateDistance()
         {
+            if (_player == null)
+                return;
             var distance = (_player.position - startPos);
             if (distance.x < 0)
                 distance.x = 0;
