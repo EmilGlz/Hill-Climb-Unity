@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 public static class Utils
 {
@@ -14,5 +16,28 @@ public static class Utils
                 return component.gameObject;
         }
         return null;
+    }
+
+    public static void RunAsync(Action action, float timeoutInSeconds = 0, bool afterEndFrame = false)
+    {
+        if (action == null)
+            return;
+        GameManager.Instance.StartCoroutine(RunActionAsap(action, timeoutInSeconds, afterEndFrame));
+    }
+
+    private static IEnumerator RunActionAsap(Action action, float timeoutInSeconds = 0, bool afterEndFrame = false)
+    {
+        if (timeoutInSeconds > 0)
+            yield return new WaitForSeconds(timeoutInSeconds);
+        else if (!afterEndFrame)
+            yield return null;
+
+        if (afterEndFrame)
+        {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+        }
+
+        action?.Invoke();
     }
 }

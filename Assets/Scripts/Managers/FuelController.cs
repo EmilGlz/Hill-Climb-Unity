@@ -27,6 +27,8 @@ public class FuelController : MonoBehaviour
 
     private void Update()
     {
+        if (Settings.InfiniteFuelOn)
+            return;
         _currentFuelAmount -= Time.deltaTime * _fuelDrainSpeed;
         UpdateUI();
         if(_currentFuelAmount <= 0)

@@ -36,7 +36,8 @@ public class PausePopup : Popup
     }
     private void ExitClicked()
     {
-
+        UIController.instance.EnterView<CarShopView>();
+        Dispose();
     }
 
     public override void Dispose()
