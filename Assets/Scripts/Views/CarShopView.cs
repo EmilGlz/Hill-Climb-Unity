@@ -1,7 +1,7 @@
 using Scripts.Items;
 using Scripts.Managers;
 using Scripts.UI;
-using Unity.VisualScripting;
+using UnityEngine;
 namespace Scripts.Views
 {
     public class CarShopView : View
@@ -11,15 +11,17 @@ namespace Scripts.Views
 
         public override void EnterView()
         {
-            if (!gameObject.TryGetComponent(out ScrollScaleController val))
-                val = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
-            if(_carItemList != null)
+            ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
+            if (scrollView == null)
+                scrollView = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
+
+            if (_carItemList != null)
             {
                 PauseResumeView(true);
                 return;
             }
             base.EnterView();
-            var content = Utils.FindGameObject("Content", val.gameObject);
+            var content = Utils.FindGameObject("Content", scrollView.gameObject);
             _carItemList = new CarItemList(ItemController.instance.userData.ownedCars, content.transform);
             Utils.RunAsync(() =>
             {
@@ -34,6 +36,10 @@ namespace Scripts.Views
                 _carItemList.Dispose();
                 _carItemList = null;
             }
+
+            ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
+            if (scrollView != null)
+                Destroy(scrollView.gameObject);
         }
     }
 }
