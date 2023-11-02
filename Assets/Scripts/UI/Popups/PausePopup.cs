@@ -40,7 +40,7 @@ namespace Scripts.UI.Popups
         }
         private void ExitClicked()
         {
-            UIController.instance.EnterView<CarShopView>();
+            UIController.instance.EnterView<MainMenuView>();
             Dispose();
         }
     }

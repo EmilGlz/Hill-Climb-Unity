@@ -27,8 +27,6 @@ public class UnlockCarPopup : Popup
 
     protected override void Show()
     {
-        base.Show();
-        // TODO show car datas
 
         BackButton = Utils.FindGameObject("CloseButton", ItemTemplate).GetComponent<Button>();
 
@@ -47,6 +45,7 @@ public class UnlockCarPopup : Popup
         var buyButton = Utils.FindGameObject("BuyButton", ItemTemplate).GetComponent<Button>();
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(BuyCar);
+        base.Show();
     }
 
     private void BuyCar()

@@ -4,9 +4,9 @@ namespace Scripts.Items
 {
     public class ItemList : IDisposable
     {
-        public List<Item> Items;
+        protected List<Item> Items;
         private Item _selectedItem;
-        protected virtual Item SelecedItem
+        protected virtual Item SelectedItem
         {
             get { return _selectedItem; }
             set { _selectedItem = value; }

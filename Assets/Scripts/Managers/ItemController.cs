@@ -11,7 +11,7 @@ namespace Scripts.Managers
             instance = this;
         }
         #endregion
-        //public List<CarData> CarDatas;
         public UserData userData;
+        public List<MainMenuTabData> mainMenuTabDatas;
     }
 }

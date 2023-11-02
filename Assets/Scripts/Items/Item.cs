@@ -4,10 +4,11 @@ namespace Scripts.Items
 {
     public class Item : IDisposable
     {
-        protected GameObject Instance;
-        protected ScriptableObject Data;
+        public GameObject Instance;
+        public readonly ScriptableObject Data;
         protected readonly Transform Parent;
         protected virtual string PrefabName => "";
+        private bool _isSelected;
         public Item(ScriptableObject data, Transform parent)
         {
             Data = data;
@@ -33,6 +34,18 @@ namespace Scripts.Items
 
         protected virtual void OnClick()
         {
+        }
+
+        public virtual bool IsSelected
+        {
+            get
+            {
+                return _isSelected;
+            }
+            set
+            {
+                _isSelected = value;
+            }
         }
 
     }

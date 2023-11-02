@@ -19,7 +19,7 @@ namespace Scripts.Managers
         [SerializeField] public Transform PopupCanvas;
         private void Start()
         {
-            EnterView<GameView>();
+            EnterView<MainMenuView>();
         }
 
         public void OpenGameOverMenu(string title)

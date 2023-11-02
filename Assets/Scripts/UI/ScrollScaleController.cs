@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace Scripts.UI
 {
-    public class ScrollScaleController : MonoBehaviour
+    public class ScrollScaleController : MonoBehaviour, IDisposable
     {
         [SerializeField] List<RectTransform> _items;
         [SerializeField] RectTransform _content;
@@ -113,6 +114,8 @@ namespace Scripts.UI
 
         private RectTransform GetBiggestItem()
         {
+            if(_items == null || _items.Count == 0)
+                return null;
             RectTransform largestLocalScaleTransform = _items[0];
             float largestScaleMagnitude = largestLocalScaleTransform.localScale.magnitude;
 
@@ -126,6 +129,17 @@ namespace Scripts.UI
                 }
             }
             return largestLocalScaleTransform;
+        }
+
+        public void Dispose()
+        {
+            foreach (var item in _items)
+            {
+                if (item != null)
+                {
+                    Destroy(item.gameObject);
+                }
+            }
         }
     }
 }
