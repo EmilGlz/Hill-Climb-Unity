@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class UserData : ScriptableObject
 {
     public List<CarData> ownedCars = new List<CarData>();
+    public List<StageData> stages = new List<StageData>();
     public int budget;
     public CarData currentSelectedCar;
+    public StageData currentSelectedStage;
 }

@@ -7,11 +7,13 @@ namespace Scripts.Views
     public class GameView : View
     {
         private GameObject _car;
+        private GameObject _stage;
         private DistanceController _distanceController;
         public override void EnterView()
         {
             base.EnterView();
-            _car = CarCreator.InstantiateCar(Settings.User.currentSelectedCar);
+            _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
+            _stage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
             GameManager.Instance.Camera.Follow = _car.transform;
 
             var text = Utils.FindGameObject("DistanceText", gameObject).GetComponent<TMP_Text>();
@@ -26,7 +28,16 @@ namespace Scripts.Views
                 _distanceController.Dispose();
                 _distanceController = null;
             }
-            Destroy(_car);
+            if (_car != null)
+            {
+                Destroy(_car);
+                _car = null;
+            }
+            if (_stage != null)
+            {
+                Destroy(_stage);
+                _stage = null;
+            }
         }
     }
 }

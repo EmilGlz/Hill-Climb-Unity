@@ -5,7 +5,7 @@ namespace Scripts.Views
 {
     public class CarShopView : View
     {
-        public static string PrefabPath = "Prefabs/Views/CarShopView";
+        public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private CarItemList _carItemList;
 
         public override void EnterView()
