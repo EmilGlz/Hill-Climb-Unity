@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bc4de721662799429384fcb97eecacf, type: 3}
-  m_Name: RaceCar
+  m_Name: 2 Motorcross Bike
   m_EditorClassIdentifier: 
-  id: 5
-  itemName: Race Car
-  icon: {fileID: 21300000, guid: c65ea0bad1ded9d4986683bb8c0faa40, type: 3}
-  level: 0
+  id: 2
+  itemName: Motorcross Bike
+  icon: {fileID: 21300000, guid: ab53370cf9f879349ab30b739a50f059, type: 3}
+  isOpened: 1
   price: 100000
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
-  prefabPath: Prefabs/Cars/RaceCar
+  prefabPath: Prefabs/Cars/MotorcrossBike
+  speed: 200
+  rotationSpeed: 400

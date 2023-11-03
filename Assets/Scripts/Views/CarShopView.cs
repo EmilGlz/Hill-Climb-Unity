@@ -1,7 +1,6 @@
 using Scripts.Items;
 using Scripts.Managers;
 using Scripts.UI;
-using UnityEngine;
 namespace Scripts.Views
 {
     public class CarShopView : View

@@ -16,9 +16,10 @@ namespace Scripts.UI.Popups
         protected Button BackButton;
         public GameObject ItemTemplate;
         protected virtual float AnimationTime => .25f;
-        protected Popup(string prefabName, Action onClose = null, Action onPopupShowed = null, bool addBackground = true, bool closeOnBackground = true)
+        protected virtual string PrefabName => "";
+        protected Popup(Action onClose = null, Action onPopupShowed = null, bool addBackground = true, bool closeOnBackground = true)
         {
-            ItemTemplate = ResourceHelper.InstantiatePrefab(prefabName, UIController.instance.PopupCanvas);
+            ItemTemplate = ResourceHelper.InstantiatePrefab(PrefabName, UIController.instance.PopupCanvas);
             if (ItemTemplate != null)
                 PopupsManager.instance.AddPopup(this);
             _onClose = onClose;

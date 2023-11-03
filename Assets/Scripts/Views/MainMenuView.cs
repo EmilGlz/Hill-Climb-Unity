@@ -1,7 +1,10 @@
 using Scripts.Managers;
+using Scripts.UI.Popups;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 namespace Scripts.Views
 {
     public class MainMenuView : View
@@ -15,6 +18,14 @@ namespace Scripts.Views
             base.EnterView();
             var content = Utils.FindGameObject("Content", gameObject);
             var homeTabs = Utils.FindGameObject("HomeTabs", gameObject);
+            var priceText = Utils.FindGameObject("PriceText", gameObject).GetComponent<TMP_Text>();
+            priceText.text = Settings.User.budget.ToString("#,##0");
+            var settingsButton = Utils.FindGameObject("SettingsButton", gameObject).GetComponent<Button>();
+            settingsButton.onClick.RemoveAllListeners();
+            settingsButton.onClick.AddListener(() =>
+            {
+                SettingsPopup.Create();
+            });
             _subViews = new List<View>();
             foreach (Transform tabItem in content.transform)
             {

@@ -7,9 +7,9 @@ namespace Scripts.UI.Popups
 {
     public class PausePopup : Popup
     {
-        private const string prefabPath = "Prefabs/Popups/PausePopup";
+        protected override string PrefabName => "Prefabs/Popups/PausePopup";
         public PausePopup(Action onClose = null, Action onPopupShowed = null, bool addBackground = true, bool closeOnBackground = true)
-            : base(prefabPath, onClose, onPopupShowed, addBackground, closeOnBackground)
+            : base(onClose, onPopupShowed, addBackground, closeOnBackground)
         {
         }
 

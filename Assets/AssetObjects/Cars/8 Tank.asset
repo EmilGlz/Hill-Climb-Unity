@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bc4de721662799429384fcb97eecacf, type: 3}
-  m_Name: Tank
+  m_Name: 8 Tank
   m_EditorClassIdentifier: 
   id: 8
   itemName: Tank
@@ -20,3 +20,5 @@ MonoBehaviour:
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
   prefabPath: Prefabs/Cars/Tank
+  speed: 200
+  rotationSpeed: 400

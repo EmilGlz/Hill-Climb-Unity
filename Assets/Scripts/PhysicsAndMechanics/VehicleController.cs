@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace ScriptsPhysicsAndMechanics
 {
-    public class DriveCar : MonoBehaviour
+    public class VehicleController : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _frontTireRB;
         [SerializeField] private Rigidbody2D _backTireRB;
@@ -10,6 +10,21 @@ namespace ScriptsPhysicsAndMechanics
         [SerializeField] private float _rotationSpeed = 300f;
 
         private float _moveInput;
+
+        private CarData _carData;
+
+        public static VehicleController Instance;
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        public void Init(CarData data)
+        {
+            _carData = data;
+            _speed = _carData.speed;
+            _rotationSpeed = _carData.rotationSpeed;
+        }
 
         private void Update()
         {

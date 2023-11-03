@@ -5,8 +5,11 @@ public class CarData : ScriptableObject
     public string id;
     public string itemName;
     public Sprite icon;
-    public int level;
+    public bool isOpened;
     public int price;
     public string description;
     public string prefabPath;
+
+    public int speed;
+    public int rotationSpeed;
 }

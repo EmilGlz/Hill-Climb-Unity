@@ -1,3 +1,5 @@
+using Scripts.Managers;
+using Scripts.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +24,7 @@ namespace Scripts.Items
             icon.sprite = data.icon;
             var title = Utils.FindGameObject("Title", Instance).GetComponent<TMP_Text>();
             title.text = data.itemName;
+            UpdateLockState(!data.isOpened);
             Instance.GetComponent<Button>().onClick.RemoveAllListeners();
             Instance.GetComponent<Button>().onClick.AddListener(OnClick);
         }
@@ -32,7 +35,7 @@ namespace Scripts.Items
             if (Data == null) return;
             if (Data is not CarData carData)
                 return;
-            if(carData.level == 0)
+            if(!carData.isOpened)
                 Buy(carData);
             else
                 Equip(carData);
@@ -45,7 +48,20 @@ namespace Scripts.Items
 
         private void Equip(CarData carData)
         {
+            Settings.User.currentSelectedCar = carData;
+            UIController.instance.EnterView<GameView>();
+        }
 
+        private void UpdateLockState(bool isLocked)
+        {
+            var lockIcon = Utils.FindGameObject("LockedIcon", Instance);
+            var pricePanel = Utils.FindGameObject("PricePanel", Instance);
+            var darkOverlay = Utils.FindGameObject("DarkOverlay", Instance);
+            var priceText = Utils.FindGameObject("PriceText", Instance).GetComponent<TMP_Text>();
+            lockIcon.SetActive(isLocked);
+            pricePanel.SetActive(isLocked);
+            darkOverlay.SetActive(isLocked);
+            priceText.text = (Data as CarData).price.ToString("#,##0");
         }
     }
 }

@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class UnlockCarPopup : Popup
 {
-    private const string _prefabName = "Prefabs/Popups/UnlockCarPopup";
+    protected override string PrefabName => "Prefabs/Popups/UnlockCarPopup";
     private readonly CarData _carData;
 
     public UnlockCarPopup(CarData car, Action onClose = null, Action onPopupShowed = null, bool addBackground = true, bool closeOnBackground = true) 
-        : base(_prefabName, onClose, onPopupShowed, addBackground, closeOnBackground)
+        : base(onClose, onPopupShowed, addBackground, closeOnBackground)
     {
         _carData = car;
     }
