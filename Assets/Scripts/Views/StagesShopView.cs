@@ -8,12 +8,13 @@ namespace Scripts.Views
     {
         public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private StagesList _stageList;
+        private ScrollScaleController _scroll;
 
         public override void EnterView()
         {
-            ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
-            if (scrollView == null)
-                scrollView = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
+            _scroll = gameObject.GetComponentInChildren<ScrollScaleController>();
+            if (_scroll == null)
+                _scroll = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
 
             if (_stageList != null)
             {
@@ -21,11 +22,11 @@ namespace Scripts.Views
                 return;
             }
             base.EnterView();
-            var content = Utils.FindGameObject("Content", scrollView.gameObject);
-            _stageList = new StagesList(ItemController.instance.userData.stages, content.transform);
+            var content = Utils.FindGameObject("Content", _scroll.gameObject);
+            _stageList = new StagesList(ItemController.instance.userData.stages, content.transform, _scroll);
             Utils.RunAsync(() =>
             {
-                ScrollScaleController.instance.InitItems();
+                _scroll.InitItems(_stageList.Items);
             });
         }
 
@@ -36,6 +37,11 @@ namespace Scripts.Views
             {
                 _stageList.Dispose();
                 _stageList = null;
+            }
+            if (_scroll != null)
+            {
+                _scroll.Dispose();
+                _scroll = null;
             }
 
             ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();

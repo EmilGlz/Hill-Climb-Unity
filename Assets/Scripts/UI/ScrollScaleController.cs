@@ -1,3 +1,4 @@
+using Scripts.Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,32 +8,31 @@ namespace Scripts.UI
 {
     public class ScrollScaleController : MonoBehaviour, IDisposable
     {
-        [SerializeField] List<RectTransform> _items;
-        [SerializeField] RectTransform _content;
+        private RectTransform _content;
+        private List<Item> _items;
         private const float _scrolltime = 0.1f;
         private bool _isDragging;
 
-        public static ScrollScaleController instance;
-        private void Awake()
+        public void InitItems(List<Item> items)
         {
-            instance = this;
-        }
-
-        public void InitItems()
-        {
-            _items = new List<RectTransform>();
-            for (int i = 0; i < _content.childCount; i++)
-            {
-                RectTransform child = _content.GetChild(i).GetComponent<RectTransform>();
-                if (child != null && child.gameObject.activeInHierarchy)
-                    _items.Add(child);
-            }
+            _content = Utils.FindGameObject("Content", gameObject).GetComponent<RectTransform>();
+            _items = items;
+            //_items = new List<RectTransform>();
+            //for (int i = 0; i < items.Count; i++)
+            //{
+            //    _items.Add(items[i].Rect);
+            //}
             var lg = _content.GetComponent<HorizontalLayoutGroup>();
             if (lg != null)
-                lg.padding.left = lg.padding.right = (int)(Device.Width / 2f - _items[0].GetWidth() / 2f);
+                lg.padding.left = lg.padding.right = (int)(Device.Width / 2f - _items[0].Rect.GetWidth() / 2f);
             UpdateItemsScale();
             // TODO Check, scale must be 1, not 0
             // And Make scrollview start from the left side
+        }
+
+        public static bool InMiddle(Item item)
+        {
+            return item.Instance.transform.localScale.x > 0.9f;
         }
 
         private bool IsOutsideTheScreen(RectTransform item)
@@ -64,21 +64,26 @@ namespace Scripts.UI
         {
             foreach (var item in _items)
             {
-                bool isOutsideScreen = IsOutsideTheScreen(item);
-                var distanceFromMiddle = DistanceFromMiddleOfScreen(item);
+                var rect = item.Rect;
+                var obj = item.Instance;
+                bool isOutsideScreen = IsOutsideTheScreen(rect);
+                var distanceFromMiddle = DistanceFromMiddleOfScreen(rect);
                 var deviceWidth = Device.Width;
                 if (!isOutsideScreen)
                 {
                     var halfDeviceWidth = deviceWidth / 2f;
                     var resScale = Vector3.one * 1 / (halfDeviceWidth / Mathf.Abs(distanceFromMiddle));
-                    if (resScale.x > 1)
-                        resScale = Vector3.one;
                     resScale = -(resScale - Vector3.one);
-                    item.transform.localScale = resScale;
+
+                    if (item is IScaler scaler)
+                        scaler.UpdateScale(resScale.x);
+
+                    if (item is IDarker darker)
+                        darker.UpdateOverlay(1 - resScale.x);
                 }
                 else
                 {
-                    item.transform.localScale = Vector3.one * 0.001f;
+                    obj.transform.localScale = Vector3.one * 0.001f;
                 }
             }
         }
@@ -95,7 +100,7 @@ namespace Scripts.UI
             if (_isDragging)
                 yield break;
             var target = GetBiggestItem();
-            var targetContentPosition = target.GetPosX() - _items[0].GetPosX();
+            var targetContentPosition = target.GetPosX() - _items[0].Rect.GetPosX();
             Vector2 startPosition = _content.anchoredPosition;
             float elapsedTime = 0f;
             Vector2 tempVector;
@@ -105,6 +110,31 @@ namespace Scripts.UI
                 elapsedTime += Time.deltaTime;
                 _content.SetPosX(tempVector.x);
                 UpdateItemsScale();
+                if (_isDragging)
+                    yield break;
+                yield return null;
+            }
+            _content.SetPosX(-targetContentPosition);
+            UpdateItemsScale();
+        }
+
+        public IEnumerator ScrollTo(Item item)
+        {
+            if (_isDragging)
+                yield break;
+            var target = item.Rect;
+            var targetContentPosition = target.GetPosX() - _items[0].Rect.GetPosX();
+            Vector2 startPosition = _content.anchoredPosition;
+            float elapsedTime = 0f;
+            Vector2 tempVector;
+            while (elapsedTime < _scrolltime)
+            {
+                tempVector = Vector2.Lerp(startPosition, Vector2.left * targetContentPosition, elapsedTime / _scrolltime);
+                elapsedTime += Time.deltaTime;
+                _content.SetPosX(tempVector.x);
+                UpdateItemsScale();
+                if (_isDragging)
+                    yield break;
                 yield return null;
             }
             _content.SetPosX(-targetContentPosition);
@@ -115,16 +145,16 @@ namespace Scripts.UI
         {
             if(_items == null || _items.Count == 0)
                 return null;
-            RectTransform largestLocalScaleTransform = _items[0];
+            RectTransform largestLocalScaleTransform = _items[0].Rect;
             float largestScaleMagnitude = largestLocalScaleTransform.localScale.magnitude;
 
             for (int i = 1; i < _items.Count; i++)
             {
-                float currentMagnitude = _items[i].localScale.magnitude;
+                float currentMagnitude = _items[i].Rect.localScale.magnitude;
                 if (currentMagnitude > largestScaleMagnitude)
                 {
                     largestScaleMagnitude = currentMagnitude;
-                    largestLocalScaleTransform = _items[i];
+                    largestLocalScaleTransform = _items[i].Rect;
                 }
             }
             return largestLocalScaleTransform;
@@ -134,10 +164,11 @@ namespace Scripts.UI
         {
             foreach (var item in _items)
             {
-                if (item != null)
-                {
-                    Destroy(item.gameObject);
-                }
+                item?.Dispose();
+            }
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
             }
         }
     }

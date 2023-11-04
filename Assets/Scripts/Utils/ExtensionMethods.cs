@@ -163,6 +163,15 @@ public static class ExtensionMethods
         return maxElement;
     }
 
+    public static void SetAlpha(this Color color, float value)
+    {
+        if (value > 1)
+            value = 1f;
+        else if(value < 0)
+            value = 0;
+        color = new Color(color.r, color.g, color.b, value);
+    }
+
     //public static void Shuffle<T>(this IList<T> list)
     //{
     //    int n = list.Count;

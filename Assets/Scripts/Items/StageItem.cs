@@ -1,16 +1,29 @@
 using Scripts.Managers;
+using Scripts.UI;
 using Scripts.Views;
+using System.Linq;
 using TMPro;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Scripts.Items
 {
-    public class StageItem : Item
+    public class StageItem : Item, IDarker, IScaler
     {
+        private readonly ScrollScaleController _scrollView;
+
         protected override string PrefabName => "Prefabs/Inventory/stage-item";
-        public StageItem(StageData data, Transform parent) : base(data, parent)
+
+        public float MinimumScale => 0.3f;
+
+        public float MaximumScale => 1f;
+
+        public float DarkestAlphaValue => 0.9f;
+
+        public float LightestAlphaValue => Data is StageData stageData && !stageData.isOpened ? 0.4f : 0f;
+
+        public StageItem(StageData data, Transform parent, ScrollScaleController scrollView) : base(data, parent)
         {
+            _scrollView = scrollView;
         }
 
         protected override void Load()
@@ -30,21 +43,41 @@ namespace Scripts.Items
             Instance.GetComponent<Button>().onClick.AddListener(OnClick);
         }
 
+        private void Reload()
+        {
+            if (Data == null)
+                return;
+            if (!(Data is StageData stageData))
+                return;
+            var stageDataOfUser = Settings.User.stages.FirstOrDefault(s => s.id == stageData.id);
+            if (stageDataOfUser == null)
+                return;
+            Data = stageDataOfUser;
+            Load();
+        }
+
         protected override void OnClick()
         {
             base.OnClick();
             if (Data == null) return;
             if (Data is not StageData stageData)
                 return;
+
+            if (!ScrollScaleController.InMiddle(this))
+            {
+                _scrollView.StartCoroutine(_scrollView.ScrollTo(this));
+                return;
+            }
+
             if (!stageData.isOpened)
                 Buy(stageData);
             else
                 Equip(stageData);
         }
 
-        private void Buy(StageData carData)
+        private void Buy(StageData stageData)
         {
-            //UnlockCarPopup.Create(carData);
+            UnlockPopup.Create(stageData, Reload);
         }
 
         private void Equip(StageData carData)
@@ -70,6 +103,20 @@ namespace Scripts.Items
             recordPanel.SetActive(!isLocked);
             priceText.text = data.price.ToString("#,##0");
             recordText.text = data.currentRecord.ToString("#,##0");
+        }
+
+        public void UpdateOverlay(float alphaValue)
+        {
+            var overlay = Utils.FindGameObject("DarkOverlay", Instance);
+            overlay.SetActive(true);
+            alphaValue = Mathf.Clamp(alphaValue, LightestAlphaValue, DarkestAlphaValue);
+            overlay.GetComponent<Image>().color = new Color(0, 0, 0, alphaValue);
+        }
+
+        public void UpdateScale(float scaleValue)
+        {
+            scaleValue = Mathf.Clamp(scaleValue, MinimumScale, MaximumScale);
+            Instance.transform.localScale = Vector3.one * scaleValue;
         }
     }
 }

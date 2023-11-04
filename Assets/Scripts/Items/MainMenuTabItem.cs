@@ -22,6 +22,7 @@ namespace Scripts.Items
             {
                 base.IsSelected = value;
                 UpdateColor();
+                UpdatePosition();
             }
         }
 
@@ -45,12 +46,33 @@ namespace Scripts.Items
             }
         }
 
+        private void UpdatePosition()
+        {
+            if (Instance == null)
+                return;
+            var selectedOffset = 5;
+            var selectedButton = ButtonObject.GetComponent<RectTransform>();
+            if (IsSelected)
+            {
+                selectedButton.SetTop(-selectedOffset);
+                selectedButton.SetBottom(selectedOffset);
+            }
+            else
+            {
+                selectedButton.SetTop(0);
+                selectedButton.SetBottom(0);
+            }
+
+        }
+
         private void UpdateColor()
         {
             if(Instance == null) 
                 return;
-            Instance.GetComponent<Image>().color = ColorUtils.ParseHexColor(IsSelected ? SelectedItemColor : UnselectedItemColor);
+            ButtonObject.GetComponent<Image>().color = ColorUtils.ParseHexColor(IsSelected ? SelectedItemColor : UnselectedItemColor);
         }
+
+        private GameObject ButtonObject => Utils.FindGameObject("Button", Instance);
 
         protected override void Load()
         {
@@ -62,11 +84,12 @@ namespace Scripts.Items
                 return;
             Instance.name = "TabItem " + data.viewName;
             Instance.GetComponentInChildren<TMP_Text>().text = data.title;
-            Instance.GetComponent<Image>().color = data.color;
-            var rect = Instance.GetComponent<RectTransform>();
-            rect.sizeDelta = _itemSize;
-            Instance.GetComponent<Button>().onClick.RemoveAllListeners();
-            Instance.GetComponent<Button>().onClick.AddListener(OnClick);
+            Rect.sizeDelta = _itemSize;
+            var buttonImage = ButtonObject.GetComponent<Image>();
+            buttonImage.color = data.color;
+            var button = buttonImage.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(OnClick);
         }
 
         protected override void OnClick()

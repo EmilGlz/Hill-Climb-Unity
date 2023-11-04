@@ -5,7 +5,8 @@ namespace Scripts.Items
     public class Item : IDisposable
     {
         public GameObject Instance;
-        public readonly ScriptableObject Data;
+        public RectTransform Rect;
+        public ScriptableObject Data {  get; protected set; }
         protected readonly Transform Parent;
         protected virtual string PrefabName => "";
         private bool _isSelected;
@@ -20,8 +21,10 @@ namespace Scripts.Items
         {
             if (Data == null)
                 return;
-            Instance = ResourceHelper.InstantiatePrefab(PrefabName, Parent);
+            if(Instance == null)
+                Instance = ResourceHelper.InstantiatePrefab(PrefabName, Parent);
             Instance.transform.localScale = Vector3.one;
+            Rect = Instance.GetComponent<RectTransform>();
         }
         public virtual void Dispose()
         {

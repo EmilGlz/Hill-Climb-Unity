@@ -1,6 +1,7 @@
 using Scripts.Items;
 using Scripts.Managers;
 using Scripts.UI;
+using Unity.VisualScripting;
 namespace Scripts.Views
 {
     public class CarShopView : View
@@ -21,10 +22,10 @@ namespace Scripts.Views
             }
             base.EnterView();
             var content = Utils.FindGameObject("Content", scrollView.gameObject);
-            _carItemList = new CarItemList(ItemController.instance.userData.ownedCars, content.transform);
+            _carItemList = new CarItemList(ItemController.instance.userData.ownedCars, content.transform, scrollView);
             Utils.RunAsync(() =>
             {
-                ScrollScaleController.instance.InitItems();
+                scrollView.InitItems(_carItemList.Items);
             });
         }
 

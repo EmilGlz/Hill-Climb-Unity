@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7816088143338238639}
   - component: {fileID: 2661055653891496279}
   m_Layer: 5
-  m_Name: CarIcon
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1216,7 +1216,7 @@ GameObject:
   - component: {fileID: 8074695629362678850}
   - component: {fileID: 6082691546744202382}
   m_Layer: 5
-  m_Name: CarTitle
+  m_Name: ContentTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 1290647738932694702}
   - component: {fileID: 6254306915057689699}
   m_Layer: 5
-  m_Name: UnlockCarPopup
+  m_Name: UnlockPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1484,7 +1484,7 @@ GameObject:
   - component: {fileID: 3234535372915028729}
   - component: {fileID: 4800663834047664674}
   m_Layer: 5
-  m_Name: CarDescription
+  m_Name: ContentDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
