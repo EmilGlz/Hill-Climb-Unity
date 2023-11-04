@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 namespace Scripts.Views
 {
@@ -8,8 +9,9 @@ namespace Scripts.Views
             gameObject.name = GetViewName();
         }
 
-        public virtual void EnterView()
+        public virtual Task EnterView()
         {
+            return Task.CompletedTask;
         }
 
         public virtual void ExitView()

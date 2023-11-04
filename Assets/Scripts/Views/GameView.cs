@@ -1,4 +1,5 @@
 using Scripts.Managers;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -9,9 +10,9 @@ namespace Scripts.Views
         private GameObject _car;
         private GameObject _stage;
         private DistanceController _distanceController;
-        public override void EnterView()
+        public override async Task EnterView()
         {
-            base.EnterView();
+            await base.EnterView();
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
             _stage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
             GameManager.Instance.Camera.Follow = _car.transform;

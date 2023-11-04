@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using UnityEditor.Build.Content;
 using UnityEngine;
 namespace Scripts.Items
 {
@@ -14,15 +16,14 @@ namespace Scripts.Items
         {
             Data = data;
             Parent = parent;
-            Load();
         }
 
-        protected virtual void Load()
+        protected virtual async Task Load()
         {
             if (Data == null)
                 return;
             if(Instance == null)
-                Instance = ResourceHelper.InstantiatePrefab(PrefabName, Parent);
+                Instance = await ResourceHelper.InstantiatePrefabAsync(PrefabName, Parent);
             Instance.transform.localScale = Vector3.one;
             Rect = Instance.GetComponent<RectTransform>();
         }

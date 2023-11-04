@@ -1,6 +1,8 @@
+using Scripts.UI;
 using Scripts.UI.Popups;
 using Scripts.Views;
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,11 +19,6 @@ namespace Scripts.Managers
         #endregion
         [SerializeField] private View[] Menus;
         [SerializeField] public Transform PopupCanvas;
-        private void Start()
-        {
-            EnterView<MainMenuView>();
-        }
-
         public void OpenGameOverMenu(string title)
         {
             EnterView<GameOverView>();
@@ -51,7 +48,7 @@ namespace Scripts.Managers
             return null;
         }
 
-        public void EnterView<T>() where T : View
+        public async void EnterView<T>() where T : View
         {
             string typeName = typeof(T).Name;
             foreach (var item in Menus)
@@ -59,14 +56,13 @@ namespace Scripts.Managers
                 if (typeName == item.GetViewName())
                 {
                     item.gameObject.SetActive(true);
-                    item.EnterView();
+                    LoadingPopup.Show();
+                    await Task.Delay((int)(LoadingPopup.AnimTime * 1000));
+                    await item.EnterView();
+                    LoadingPopup.CloseAnim();
                 }
                 else
-                {
-                    if (item.gameObject.activeInHierarchy)
-                        item.ExitView();
-                    item.gameObject.SetActive(false);
-                }
+                    item.ExitView();
             }
         }
     }

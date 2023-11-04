@@ -1,6 +1,8 @@
 using Scripts.Items;
 using Scripts.Managers;
 using Scripts.UI;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Scripts.Views
 {
@@ -10,8 +12,9 @@ namespace Scripts.Views
         private StagesList _stageList;
         private ScrollScaleController _scroll;
 
-        public override void EnterView()
+        public override async Task EnterView()
         {
+            await base.EnterView();
             _scroll = gameObject.GetComponentInChildren<ScrollScaleController>();
             if (_scroll == null)
                 _scroll = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
@@ -21,12 +24,13 @@ namespace Scripts.Views
                 PauseResumeView(true);
                 return;
             }
-            base.EnterView();
             var content = Utils.FindGameObject("Content", _scroll.gameObject);
-            _stageList = new StagesList(ItemController.instance.userData.stages, content.transform, _scroll);
+            content.transform.DestroyAllChildren();
+            _stageList = await StagesList.CreateAsync(ItemController.instance.userData.stages, content.transform, _scroll);
             Utils.RunAsync(() =>
             {
                 _scroll.InitItems(_stageList.Items);
+                StartCoroutine(_scroll.ScrollTo(_stageList.Items.FirstOrDefault(i => i.Data is StageData stageData && stageData == Settings.User.currentSelectedStage)));
             });
         }
 

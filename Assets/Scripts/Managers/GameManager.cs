@@ -1,4 +1,5 @@
 using Cinemachine;
+using Scripts.Views;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Scripts.Managers
                 Settings.User = Settings.ResettedUser();
                 Settings.SaveUserData();
             }
+
+            UIController.instance.EnterView<MainMenuView>();
         }
         private void Update()
         {

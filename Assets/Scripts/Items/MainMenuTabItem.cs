@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,15 @@ namespace Scripts.Items
         private Vector2 _itemSize = new Vector2(130, 50);
         protected override string PrefabName => "Prefabs/Buttons/TabButton";
         private readonly Action<MainMenuTabItem> _onSelect;
-        public MainMenuTabItem(MainMenuTabData data, Transform parent, Action<MainMenuTabItem> onSelect) : base(data, parent)
+
+        public static async Task<MainMenuTabItem> CreateAsync(MainMenuTabData data, Transform parent, Action<MainMenuTabItem> onSelect)
+        {
+            var item = new MainMenuTabItem(data, parent, onSelect);
+            await item.Load();
+            return item;
+        }
+
+        private MainMenuTabItem(MainMenuTabData data, Transform parent, Action<MainMenuTabItem> onSelect) : base(data, parent)
         {
             _onSelect = onSelect;
         }
@@ -74,9 +83,9 @@ namespace Scripts.Items
 
         private GameObject ButtonObject => Utils.FindGameObject("Button", Instance);
 
-        protected override void Load()
+        protected override async Task Load()
         {
-            base.Load();
+            await base.Load();
             if (Data == null)
                 return;
             var data = Data as MainMenuTabData;

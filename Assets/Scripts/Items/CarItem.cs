@@ -2,6 +2,7 @@ using Scripts.Managers;
 using Scripts.UI;
 using Scripts.Views;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,14 +22,21 @@ namespace Scripts.Items
 
         public float LightestAlphaValue => Data is CarData carData && !carData.isOpened ? 0.4f : 0f;
 
-        public CarItem(CarData data, Transform parent, ScrollScaleController scrollView) : base(data, parent)
+        public static async Task<CarItem> CreateAsync(CarData data, Transform parent, ScrollScaleController scrollView)
+        {
+            var item = new CarItem(data, parent, scrollView);
+            await item.Load();
+            return item;
+        }
+
+        private CarItem(CarData data, Transform parent, ScrollScaleController scrollView) : base(data, parent)
         {
             _scrollView = scrollView;
         }
 
-        protected override void Load()
+        protected override async Task Load()
         {
-            base.Load();
+            await base.Load();
             if (Data == null)
                 return;
             var data = Data as CarData;
@@ -41,6 +49,7 @@ namespace Scripts.Items
             UpdateLockState(!data.isOpened);
             Instance.GetComponent<Button>().onClick.RemoveAllListeners();
             Instance.GetComponent<Button>().onClick.AddListener(OnClick);
+            Instance.name += data.id.ToString();
         }
 
         protected override void OnClick()
@@ -62,7 +71,7 @@ namespace Scripts.Items
                 Equip(carData);
         }
 
-        private void Reload()
+        private async void Reload()
         {
             if (Data == null)
                 return;
@@ -72,7 +81,7 @@ namespace Scripts.Items
             if (carDataOfUser == null)
                 return;
             Data = carDataOfUser;
-            Load();
+            await Load();
         }
 
         private void Buy(CarData carData)

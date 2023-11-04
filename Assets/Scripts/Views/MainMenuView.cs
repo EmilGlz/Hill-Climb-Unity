@@ -2,6 +2,7 @@ using Scripts.Managers;
 using Scripts.UI.Popups;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,9 @@ namespace Scripts.Views
         private List<View> _subViews;
         private View _currentView;
 
-        public override void EnterView()
+        public async override Task EnterView()
         {
-            base.EnterView();
+            await base.EnterView();
             var content = Utils.FindGameObject("Content", gameObject);
             var homeTabs = Utils.FindGameObject("HomeTabs", gameObject);
             var priceText = Utils.FindGameObject("PriceText", gameObject).GetComponent<TMP_Text>();
@@ -32,10 +33,11 @@ namespace Scripts.Views
                 if (tabItem.gameObject.TryGetComponent(out View view))
                     _subViews.Add(view);
             }
-            _tabItemList = new MainMenuTabItemList(ItemController.instance.mainMenuTabDatas, homeTabs.transform, UpdateView);
+            homeTabs.transform.DestroyAllChildren();
+            _tabItemList = await MainMenuTabItemList.CreateAsync(ItemController.instance.mainMenuTabDatas, homeTabs.transform, UpdateView);
         }
 
-        private void UpdateView(MainMenuTabData tabData)
+        private async void UpdateView(MainMenuTabData tabData)
         {
             if (_subViews == null || _subViews.Count == 0)
             {
@@ -58,7 +60,7 @@ namespace Scripts.Views
                 UIController.instance.EnterView<GameView>();
                 return;
             }
-            _currentView.EnterView();
+            await _currentView.EnterView();
             _currentView.gameObject.SetActive(true);
         }
 
@@ -86,6 +88,8 @@ namespace Scripts.Views
                 _tabItemList.Dispose();
                 _tabItemList = null;
             }
+
+            gameObject.SetActive(false);
         }
     }
 }

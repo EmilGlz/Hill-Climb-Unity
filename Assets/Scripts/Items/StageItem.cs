@@ -2,6 +2,7 @@ using Scripts.Managers;
 using Scripts.UI;
 using Scripts.Views;
 using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,14 +22,21 @@ namespace Scripts.Items
 
         public float LightestAlphaValue => Data is StageData stageData && !stageData.isOpened ? 0.4f : 0f;
 
-        public StageItem(StageData data, Transform parent, ScrollScaleController scrollView) : base(data, parent)
+        public static async Task<StageItem> CreateAsync(StageData data, Transform parent, ScrollScaleController scrollView)
+        {
+            var item = new StageItem(data, parent, scrollView);
+            await item.Load();
+            return item;
+        }
+
+        private StageItem(StageData data, Transform parent, ScrollScaleController scrollView) : base(data, parent)
         {
             _scrollView = scrollView;
         }
 
-        protected override void Load()
+        protected override async Task Load()
         {
-            base.Load();
+            await base.Load();
             if (Data == null)
                 return;
             var data = Data as StageData;
@@ -43,7 +51,7 @@ namespace Scripts.Items
             Instance.GetComponent<Button>().onClick.AddListener(OnClick);
         }
 
-        private void Reload()
+        private async void Reload()
         {
             if (Data == null)
                 return;
@@ -53,7 +61,7 @@ namespace Scripts.Items
             if (stageDataOfUser == null)
                 return;
             Data = stageDataOfUser;
-            Load();
+            await Load();
         }
 
         protected override void OnClick()

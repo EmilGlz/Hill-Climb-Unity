@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 public static class ResourceHelper
 {
@@ -12,20 +13,22 @@ public static class ResourceHelper
         return null;
     }
 
-    public static IEnumerator LoadAndInstantiatePrefab(string path, Transform parent, System.Action<GameObject> callback = null)
+    public static async Task<GameObject> InstantiatePrefabAsync(string prefabPath, Transform parent)
     {
-        ResourceRequest prefabLoadRequest = Resources.LoadAsync<GameObject>(path);
+        ResourceRequest request = Resources.LoadAsync(prefabPath, typeof(GameObject));
 
-        while (!prefabLoadRequest.isDone)
+        while (!request.isDone)
+            await Task.Yield(); // Yield to allow Unity to load the resource asynchronously
+
+        GameObject prefab = request.asset as GameObject;
+
+        if (prefab == null)
         {
-            // You can update a loading progress bar or perform other tasks here.
-            float progress = prefabLoadRequest.progress;
-            yield return null; // Yield to the main thread briefly.
+            Debug.LogError("Prefab not found at path: " + prefabPath);
+            return null;
         }
 
-        // The prefab is loaded, instantiate it.    
-        GameObject prefab = prefabLoadRequest.asset as GameObject;
-        var res = Object.Instantiate(prefab, parent);
-        callback?.Invoke(res);
+        GameObject instantiatedObject = GameObject.Instantiate(prefab, parent);
+        return instantiatedObject;
     }
 }

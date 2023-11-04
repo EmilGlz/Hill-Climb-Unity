@@ -29,6 +29,14 @@ public static class ExtensionMethods
         return s[0].ToString().ToUpper() + s.Substring(1);
     }
 
+    public static void DestroyAllChildren(this Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            UnityEngine.Object.Destroy(child.gameObject);
+        }
+    }
+
     public static bool IsDestroyed(this GameObject obj)
     {
         return obj == null;

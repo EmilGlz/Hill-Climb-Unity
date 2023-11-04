@@ -1,6 +1,8 @@
 using Scripts.Items;
 using Scripts.Managers;
 using Scripts.UI;
+using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 namespace Scripts.Views
 {
@@ -9,8 +11,9 @@ namespace Scripts.Views
         public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private CarItemList _carItemList;
 
-        public override void EnterView()
+        public override async Task EnterView()
         {
+            await base.EnterView();
             ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
             if (scrollView == null)
                 scrollView = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
@@ -20,12 +23,13 @@ namespace Scripts.Views
                 PauseResumeView(true);
                 return;
             }
-            base.EnterView();
             var content = Utils.FindGameObject("Content", scrollView.gameObject);
-            _carItemList = new CarItemList(ItemController.instance.userData.ownedCars, content.transform, scrollView);
+            content.transform.DestroyAllChildren();
+            _carItemList = await CarItemList.CreateAsync(ItemController.instance.userData.ownedCars, content.transform, scrollView);
             Utils.RunAsync(() =>
             {
                 scrollView.InitItems(_carItemList.Items);
+                StartCoroutine(scrollView.ScrollTo(_carItemList.Items.FirstOrDefault(i => i.Data is CarData carData && carData == Settings.User.currentSelectedCar)));
             });
         }
 
