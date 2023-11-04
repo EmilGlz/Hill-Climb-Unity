@@ -17,17 +17,10 @@ namespace Scripts.UI
         {
             _content = Utils.FindGameObject("Content", gameObject).GetComponent<RectTransform>();
             _items = items;
-            //_items = new List<RectTransform>();
-            //for (int i = 0; i < items.Count; i++)
-            //{
-            //    _items.Add(items[i].Rect);
-            //}
             var lg = _content.GetComponent<HorizontalLayoutGroup>();
             if (lg != null)
                 lg.padding.left = lg.padding.right = (int)(Device.Width / 2f - _items[0].Rect.GetWidth() / 2f);
             UpdateItemsScale();
-            // TODO Check, scale must be 1, not 0
-            // And Make scrollview start from the left side
         }
 
         public static bool InMiddle(Item item)
@@ -141,9 +134,17 @@ namespace Scripts.UI
             UpdateItemsScale();
         }
 
+        public void ScrollToWithNoAnimation(Item item)
+        {
+            var target = item.Rect;
+            var targetContentPosition = target.GetPosX() - _items[0].Rect.GetPosX();
+            _content.SetPosX(-targetContentPosition);
+            UpdateItemsScale();
+        }
+
         private RectTransform GetBiggestItem()
         {
-            if(_items == null || _items.Count == 0)
+            if (_items == null || _items.Count == 0)
                 return null;
             RectTransform largestLocalScaleTransform = _items[0].Rect;
             float largestScaleMagnitude = largestLocalScaleTransform.localScale.magnitude;
