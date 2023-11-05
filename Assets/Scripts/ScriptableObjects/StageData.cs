@@ -5,6 +5,7 @@ public class StageData : ScriptableObject
     public string id;
     public string itemName;
     public Sprite icon;
+    public Sprite skySprite;
     public bool isOpened;
     public int price;
     public string description;

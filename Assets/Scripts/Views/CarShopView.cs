@@ -10,28 +10,41 @@ namespace Scripts.Views
     {
         public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private CarItemList _carItemList;
-
+        private ScrollScaleController _scrollView;
         public override async Task EnterView()
         {
             await base.EnterView();
-            ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
-            if (scrollView == null)
-                scrollView = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
+            _scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
+            if (_scrollView == null)
+                _scrollView = ResourceHelper.InstantiatePrefab(PrefabPath, transform).GetComponent<ScrollScaleController>();
 
             if (_carItemList != null)
             {
                 PauseResumeView(true);
                 return;
             }
-            var content = Utils.FindGameObject("Content", scrollView.gameObject);
+            var content = Utils.FindGameObject("Content", _scrollView.gameObject);
             content.transform.DestroyAllChildren();
-            _carItemList = await CarItemList.CreateAsync(ItemController.instance.userData.ownedCars, content.transform, scrollView);
+            _carItemList = await CarItemList.CreateAsync(ItemController.instance.userData.ownedCars, content.transform, _scrollView);
             Utils.RunAsync(() =>
             {
-                scrollView.InitItems(_carItemList.Items);
-                StartCoroutine(scrollView.ScrollTo(_carItemList.Items.FirstOrDefault(i => i.Data is CarData carData && carData == Settings.User.currentSelectedCar)));
+                _scrollView.InitItems(_carItemList.Items);
+                StartCoroutine(_scrollView.ScrollTo(_carItemList.Items.FirstOrDefault(i => i.Data is CarData carData && carData == Settings.User.currentSelectedCar)));
             });
         }
+
+        public CarData GetCurrentSelectedCarData()
+        {
+            return _scrollView.CurrentSelectedItem?.Data as CarData;
+        }
+
+        public CarItem GetCurrentSelectedItem()
+        {
+            if (_scrollView.CurrentSelectedItem == null)
+                return null;
+            return _scrollView.CurrentSelectedItem as CarItem;
+        }
+
 
         public override void ExitView()
         {
@@ -40,10 +53,11 @@ namespace Scripts.Views
                 _carItemList.Dispose();
                 _carItemList = null;
             }
-
-            ScrollScaleController scrollView = gameObject.GetComponentInChildren<ScrollScaleController>();
-            if (scrollView != null)
-                Destroy(scrollView.gameObject);
+            if (_scrollView != null)
+            {
+                Destroy(_scrollView.gameObject);
+                _scrollView = null;
+            }
         }
     }
 }

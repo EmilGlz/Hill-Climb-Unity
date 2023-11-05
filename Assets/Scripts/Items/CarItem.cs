@@ -71,7 +71,7 @@ namespace Scripts.Items
                 Equip(carData);
         }
 
-        private async void Reload()
+        public async void Reload()
         {
             if (Data == null)
                 return;

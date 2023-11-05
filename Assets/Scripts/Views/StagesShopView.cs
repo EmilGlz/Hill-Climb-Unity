@@ -3,6 +3,7 @@ using Scripts.Managers;
 using Scripts.UI;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 namespace Scripts.Views
 {
@@ -32,6 +33,18 @@ namespace Scripts.Views
                 _scroll.InitItems(_stageList.Items);
                 StartCoroutine(_scroll.ScrollTo(_stageList.Items.FirstOrDefault(i => i.Data is StageData stageData && stageData == Settings.User.currentSelectedStage)));
             });
+        }
+
+        public StageData GetCurrentSelectedStageData()
+        {
+            return _scroll.CurrentSelectedItem?.Data as StageData;
+        }
+
+        public StageItem GetCurrentSelectedItem()
+        {
+            if (_scroll.CurrentSelectedItem == null)
+                return null;
+            return _scroll.CurrentSelectedItem as StageItem;
         }
 
         public override void ExitView()

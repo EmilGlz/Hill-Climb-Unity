@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 5
   itemName: Arctic
   icon: {fileID: 21300000, guid: 0afa99bd419d81c4887fe2bccc4946ab, type: 3}
+  skySprite: {fileID: 21300000, guid: 46e9879318070434bbc6463407d62262, type: 3}
   isOpened: 0
   price: 1500000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 2
   itemName: Highway
   icon: {fileID: 21300000, guid: eb9bd425a7193134ea89dee83d0d5126, type: 3}
+  skySprite: {fileID: 21300000, guid: 198f355ddef61c94096824c98b0fc9c3, type: 3}
   isOpened: 1
   price: 100000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

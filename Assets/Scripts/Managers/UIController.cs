@@ -61,7 +61,7 @@ namespace Scripts.Managers
             }
         }
 
-        private View GetCurrentView()
+        public View GetCurrentView()
         {
             foreach (var item in Menus)
                 if (item.gameObject.activeInHierarchy)

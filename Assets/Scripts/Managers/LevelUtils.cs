@@ -1,3 +1,4 @@
+using Scripts.Managers;
 using ScriptsPhysicsAndMechanics;
 using UnityEngine;
 public static class LevelUtils
@@ -18,4 +19,12 @@ public static class LevelUtils
         stage.transform.localScale = Vector3.one;
         return stage;
     }
+
+    public static void UpdateSkyBackground(StageData data)
+    {
+        var backgroundSprite = Utils.FindGameObject("Background", GameManager.Instance.Camera.gameObject).GetComponent<SpriteRenderer>();
+        backgroundSprite.gameObject.SetActive(true);
+        backgroundSprite.sprite = data.skySprite;
+    }
+
 }

@@ -13,6 +13,8 @@ namespace Scripts.UI
         private const float _scrolltime = 0.1f;
         private bool _isDragging;
 
+        public Item CurrentSelectedItem;
+
         public void InitItems(List<Item> items)
         {
             _content = Utils.FindGameObject("Content", gameObject).GetComponent<RectTransform>();
@@ -93,7 +95,7 @@ namespace Scripts.UI
             if (_isDragging)
                 yield break;
             var target = GetBiggestItem();
-            var targetContentPosition = target.GetPosX() - _items[0].Rect.GetPosX();
+            var targetContentPosition = target.Rect.GetPosX() - _items[0].Rect.GetPosX();
             Vector2 startPosition = _content.anchoredPosition;
             float elapsedTime = 0f;
             Vector2 tempVector;
@@ -109,6 +111,7 @@ namespace Scripts.UI
             }
             _content.SetPosX(-targetContentPosition);
             UpdateItemsScale();
+            CurrentSelectedItem = target;
         }
 
         public IEnumerator ScrollTo(Item item)
@@ -142,7 +145,7 @@ namespace Scripts.UI
             UpdateItemsScale();
         }
 
-        private RectTransform GetBiggestItem()
+        private RectTransform GetBiggestItemRect()
         {
             if (_items == null || _items.Count == 0)
                 return null;
@@ -156,6 +159,25 @@ namespace Scripts.UI
                 {
                     largestScaleMagnitude = currentMagnitude;
                     largestLocalScaleTransform = _items[i].Rect;
+                }
+            }
+            return largestLocalScaleTransform;
+        }
+
+        private Item GetBiggestItem()
+        {
+            if (_items == null || _items.Count == 0)
+                return null;
+            var largestLocalScaleTransform = _items[0];
+            float largestScaleMagnitude = largestLocalScaleTransform.Rect.localScale.magnitude;
+
+            for (int i = 1; i < _items.Count; i++)
+            {
+                float currentMagnitude = _items[i].Rect.localScale.magnitude;
+                if (currentMagnitude > largestScaleMagnitude)
+                {
+                    largestScaleMagnitude = currentMagnitude;
+                    largestLocalScaleTransform = _items[i];
                 }
             }
             return largestLocalScaleTransform;

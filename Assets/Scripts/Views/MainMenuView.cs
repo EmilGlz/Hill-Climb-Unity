@@ -17,7 +17,7 @@ namespace Scripts.Views
         public async override Task EnterView()
         {
             await base.EnterView();
-            
+
             var backGround = Utils.FindGameObject("Background", gameObject);
             var arf = backGround.GetComponent<AspectRatioFitter>();
             var texture = backGround.GetComponent<Image>().mainTexture;
@@ -44,6 +44,8 @@ namespace Scripts.Views
             Settings.OnPurchase += UpdateBudgetUI;
         }
 
+        public View CurrentView => _currentView;
+
         private void UpdateBudgetUI()
         {
             var priceText = Utils.FindGameObject("PriceText", gameObject).GetComponent<TMP_Text>();
@@ -59,18 +61,60 @@ namespace Scripts.Views
             }
             if (tabData == null)
                 return;
+
+            if (_currentView is CarShopView carView)
+            {
+                var currentCarData = carView.GetCurrentSelectedCarData();
+                if (currentCarData != null)
+                {
+                    if (!currentCarData.isOpened)
+                    {
+
+                        UnlockPopup.Create(currentCarData, () =>
+                        {
+                            var currentItem = carView.GetCurrentSelectedItem();
+                            currentItem?.Reload();
+                        });
+                        return;
+                    }
+                    else
+                        Settings.User.currentSelectedCar = currentCarData;
+                }
+            }
+
+            if (_currentView is StagesShopView stageView)
+            {
+                var currentStageData = stageView.GetCurrentSelectedStageData();
+                if (currentStageData != null)
+                {
+                    if (!currentStageData.isOpened)
+                    {
+                        UnlockPopup.Create(currentStageData, () =>
+                        {
+                            var currentItem = stageView.GetCurrentSelectedItem();
+                            currentItem?.Reload();
+                        });
+                        return;
+                    }
+                    else
+                        Settings.User.currentSelectedStage = currentStageData;
+                }
+            }
+
             if (_currentView != null)
                 _currentView.PauseResumeView(false);
             else
             {
-                foreach (View view in _subViews) {
+                foreach (View view in _subViews)
+                {
                     view.PauseResumeView(view.GetViewName() == tabData.viewName);
                 }
             }
             _currentView = GetSubViewByClassName(tabData.viewName);
-            if(IsStartButton(tabData))
+            if (IsStartButton(tabData))
             {
                 UIController.instance.EnterView<GameView>();
+                LevelUtils.UpdateSkyBackground(Settings.User.currentSelectedStage);
                 return;
             }
             await _currentView.EnterView();

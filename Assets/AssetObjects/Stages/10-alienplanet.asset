@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 10
   itemName: Alien Planet
   icon: {fileID: 21300000, guid: 1e01357b34c46554daf804554de71554, type: 3}
+  skySprite: {fileID: 21300000, guid: 27a094525142ed14182aef2a6af5421f, type: 3}
   isOpened: 0
   price: 3000000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

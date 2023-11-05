@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 6
   itemName: Cave
   icon: {fileID: 21300000, guid: f077525e572051c468ed960982ddf85d, type: 3}
+  skySprite: {fileID: 21300000, guid: d704b98c20fc850418ec1ebe0b2c18c4, type: 3}
   isOpened: 0
   price: 1800000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

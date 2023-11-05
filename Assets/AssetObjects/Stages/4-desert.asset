@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 4
   itemName: Desert
   icon: {fileID: 21300000, guid: 6227c4b23c0a7404ebe7b47fe8ba89af, type: 3}
-  isOpened: 0
+  skySprite: {fileID: 21300000, guid: 2c35d5a8f9c44fc4d87a739107d97df5, type: 3}
+  isOpened: 1
   price: 100000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder
     text used in design when creating content. It helps designers plan out where

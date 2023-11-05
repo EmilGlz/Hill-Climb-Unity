@@ -1,4 +1,6 @@
 using Scripts.Items;
+using Scripts.Managers;
+using Scripts.Views;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,8 +31,25 @@ public class MainMenuTabItemList : ItemList
 
     private void OnItemSelected(MainMenuTabItem tabItem)
     {
-        SelecedItem = tabItem;
         _onClick?.Invoke(tabItem.Data as MainMenuTabData);
+        MainMenuView mainMenuView = (UIController.instance.GetCurrentView() as MainMenuView);
+        if (mainMenuView == null)
+            return;
+        if (mainMenuView.CurrentView is CarShopView currentViewCar)
+        {
+            CarData currentSelectedCarData = currentViewCar.GetCurrentSelectedCarData();
+            if (currentSelectedCarData != null && !currentSelectedCarData.isOpened)
+                return;
+        }
+
+        if (mainMenuView.CurrentView is StagesShopView currentViewStage)
+        {
+            var currentSelectedStageData = currentViewStage.GetCurrentSelectedStageData();
+            if (currentSelectedStageData != null && !currentSelectedStageData.isOpened)
+                return;
+        }
+
+        SelecedItem = tabItem;
     }
 
     protected override Item SelecedItem

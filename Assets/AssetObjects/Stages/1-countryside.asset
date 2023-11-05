@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 1
   itemName: Countryside
   icon: {fileID: 21300000, guid: d53edbf13ee31a44f99dc33816bc774b, type: 3}
+  skySprite: {fileID: 21300000, guid: 2c35d5a8f9c44fc4d87a739107d97df5, type: 3}
   isOpened: 1
   price: 100000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

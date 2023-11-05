@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 7
   itemName: Mars
   icon: {fileID: 21300000, guid: bc8a089796b25c148985a855ab33cf35, type: 3}
+  skySprite: {fileID: 21300000, guid: 22765227faaa2d64a8cc142d80849600, type: 3}
   isOpened: 0
   price: 2000000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

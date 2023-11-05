@@ -30,7 +30,7 @@ namespace Scripts.Views
             UpdateBudgetUI();
 
             var distanceText = Utils.FindGameObject("DistanceText", gameObject).GetComponent<TMP_Text>();
-            _distanceController = new DistanceController(distanceText, transform);
+            _distanceController = new DistanceController(distanceText, _car.transform);
             Settings.OnPurchase += UpdateBudgetUI;
 
             _gameOverView = Utils.FindGameObject("GameOverView", gameObject).GetComponent<GameOverView>();

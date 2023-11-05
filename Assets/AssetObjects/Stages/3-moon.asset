@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 3
   itemName: Moon
   icon: {fileID: 21300000, guid: ea9d0c2760ce18244b2d31596d95964e, type: 3}
-  isOpened: 0
+  skySprite: {fileID: 21300000, guid: 20bd2a1ea8a3a734b825423200594997, type: 3}
+  isOpened: 1
   price: 50000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder
     text used in design when creating content. It helps designers plan out where

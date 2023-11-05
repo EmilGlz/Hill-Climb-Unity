@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 9
   itemName: Forest
   icon: {fileID: 21300000, guid: 09ebcfe8d8789734f963f69074d21ddb, type: 3}
+  skySprite: {fileID: 21300000, guid: bcbc9c38f4b243f4db56bef7ceb1d20a, type: 3}
   isOpened: 0
   price: 2300000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder

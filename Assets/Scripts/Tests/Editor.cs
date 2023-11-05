@@ -1,4 +1,3 @@
-using Scripts.Managers;
 using UnityEditor;
 
 internal class Editor 
@@ -10,10 +9,23 @@ internal class Editor
         Settings.InfiniteFuelOn = true;
     }
 
-    [MenuItem("Editor Buttons/Delete User From Local Storage")]
-    private static void DeleteUserDatasFromLocal()
+    [MenuItem("Hill Climb/Make Fuel Finite")]
+    public static void MakeFuelFinite()
     {
-        Settings.RemoveUserData();
+        Settings.InfiniteFuelOn = false;
     }
+
+    [MenuItem("Hill Climb/Make Head Immortal")]
+    public static void MakeHeadImmortal()
+    {
+        Settings.HeadImmortal = true;
+    }
+
+    [MenuItem("Hill Climb/Make Head Non Immortal")]
+    public static void MakeHeadNonImmortal()
+    {
+        Settings.HeadImmortal = false;
+    }
+
 #endif
 }

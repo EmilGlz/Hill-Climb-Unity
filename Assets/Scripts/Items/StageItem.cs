@@ -51,7 +51,7 @@ namespace Scripts.Items
             Instance.GetComponent<Button>().onClick.AddListener(OnClick);
         }
 
-        private async void Reload()
+        public async void Reload()
         {
             if (Data == null)
                 return;

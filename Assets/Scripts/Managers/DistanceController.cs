@@ -30,7 +30,7 @@ namespace Scripts.Managers
             var distance = (_player.position - startPos);
             if (distance.x < 0)
                 distance.x = 0;
-            _text.text = distance.x.ToString("F0") + "m";
+            _text.text = distance.x.ToString("F0") + " m";
         }
     }
 }

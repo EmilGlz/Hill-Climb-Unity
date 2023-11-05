@@ -17,6 +17,11 @@ namespace Scripts.Managers
         private void Start()
         {
             Settings.User = ItemController.instance.userData;
+            if (Settings.User.currentSelectedStage == null || Settings.User.currentSelectedCar == null)
+            {
+                Settings.User.currentSelectedStage = Settings.User.stages[0];
+                Settings.User.currentSelectedCar = Settings.User.ownedCars[0];
+            }
             UIController.instance.EnterView<MainMenuView>();
         }
         private void Update()
