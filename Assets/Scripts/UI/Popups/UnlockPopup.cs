@@ -94,6 +94,7 @@ public class UnlockPopup : Popup
                 Settings.User.budget -= _carData.price;
                 _carData.isOpened = true;
                 _onBuy.Invoke();
+                Settings.OnPurchase?.Invoke();
                 Dispose();
             }
             else

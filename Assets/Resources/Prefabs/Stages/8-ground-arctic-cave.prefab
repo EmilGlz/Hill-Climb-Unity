@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4124958213518701456}
   - component: {fileID: 3596576198358962321}
   - component: {fileID: 8746876927452678839}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 8-ground-arctic-cave
   m_TagString: Ground
   m_Icon: {fileID: 0}

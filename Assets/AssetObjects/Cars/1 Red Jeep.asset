@@ -21,4 +21,4 @@ MonoBehaviour:
     the readable content of a page when looking at its layout.
   prefabPath: Prefabs/Cars/RedJeep
   speed: 200
-  rotationSpeed: 400
+  rotationSpeed: 1000

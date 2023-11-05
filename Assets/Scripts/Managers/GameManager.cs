@@ -17,12 +17,6 @@ namespace Scripts.Managers
         private void Start()
         {
             Settings.User = ItemController.instance.userData;
-            if (Settings.User == null) 
-            {
-                Settings.User = Settings.ResettedUser();
-                Settings.SaveUserData();
-            }
-
             UIController.instance.EnterView<MainMenuView>();
         }
         private void Update()

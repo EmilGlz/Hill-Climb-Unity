@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7346448304806926062}
   - component: {fileID: 560005180378251491}
   - component: {fileID: 7153358454761406973}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 1-ground-countryside
   m_TagString: Ground
   m_Icon: {fileID: 0}

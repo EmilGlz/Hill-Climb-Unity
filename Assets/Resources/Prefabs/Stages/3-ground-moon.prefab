@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3368007597287168910}
   - component: {fileID: 4475402362840240934}
   - component: {fileID: 179703247462438604}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 3-ground-moon
   m_TagString: Ground
   m_Icon: {fileID: 0}

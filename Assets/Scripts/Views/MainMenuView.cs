@@ -17,10 +17,16 @@ namespace Scripts.Views
         public async override Task EnterView()
         {
             await base.EnterView();
+            
+            var backGround = Utils.FindGameObject("Background", gameObject);
+            var arf = backGround.GetComponent<AspectRatioFitter>();
+            var texture = backGround.GetComponent<Image>().mainTexture;
+            arf.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+            arf.aspectRatio = texture.width / (float)texture.height;
+
+
             var content = Utils.FindGameObject("Content", gameObject);
             var homeTabs = Utils.FindGameObject("HomeTabs", gameObject);
-            var priceText = Utils.FindGameObject("PriceText", gameObject).GetComponent<TMP_Text>();
-            priceText.text = Settings.User.budget.ToString("#,##0");
             var settingsButton = Utils.FindGameObject("SettingsButton", gameObject).GetComponent<Button>();
             settingsButton.onClick.RemoveAllListeners();
             settingsButton.onClick.AddListener(() =>
@@ -35,6 +41,13 @@ namespace Scripts.Views
             }
             homeTabs.transform.DestroyAllChildren();
             _tabItemList = await MainMenuTabItemList.CreateAsync(ItemController.instance.mainMenuTabDatas, homeTabs.transform, UpdateView);
+            Settings.OnPurchase += UpdateBudgetUI;
+        }
+
+        private void UpdateBudgetUI()
+        {
+            var priceText = Utils.FindGameObject("PriceText", gameObject).GetComponent<TMP_Text>();
+            priceText.text = Settings.User.budget.ToString("#,##0");
         }
 
         private async void UpdateView(MainMenuTabData tabData)
@@ -77,6 +90,7 @@ namespace Scripts.Views
         public override void ExitView()
         {
             base.ExitView();
+            Settings.OnPurchase -= UpdateBudgetUI;
             foreach (View view in _subViews)
             {
                 if (view != null)

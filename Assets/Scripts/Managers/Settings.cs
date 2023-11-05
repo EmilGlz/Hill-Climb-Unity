@@ -1,9 +1,11 @@
 using Scripts.Managers;
+using System;
 using System.IO;
 using UnityEngine;
 
 public static class Settings
 {
+    public static Action OnPurchase;
     public static bool InfiniteFuelOn
     {
         get
@@ -15,6 +17,19 @@ public static class Settings
         {
             var res = value ? 1 : 0;
             PlayerPrefs.SetInt("InfiniteFuel", res);
+        }
+    }
+    public static bool HeadImmortal
+    {
+        get
+        {
+            var res = PlayerPrefs.GetInt("HeadImmortal");
+            return res == 1;
+        }
+        set
+        {
+            var res = value ? 1 : 0;
+            PlayerPrefs.SetInt("HeadImmortal", res);
         }
     }
     private static UserData _user;
@@ -31,31 +46,4 @@ public static class Settings
             ownedCars = ItemController.instance.userData.ownedCars
         };
     }
-
-    public static void SaveUserData()
-    {
-        string jsonData = JsonUtility.ToJson(User);
-        File.WriteAllText(Application.persistentDataPath + "/userData.json", jsonData);
-    }
-
-    public static void LoadUserData()
-    {
-        string filePath = Application.persistentDataPath + "/userData.json";
-        if (File.Exists(filePath))
-        {
-            string jsonData = File.ReadAllText(filePath);
-            User = JsonUtility.FromJson<UserData>(jsonData);
-        }
-    }
-
-    public static void RemoveUserData()
-    {
-        string filePath = Application.persistentDataPath + "/userData.json";
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-        }
-    }
-
-
 }

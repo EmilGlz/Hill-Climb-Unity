@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6047308816454988241}
   - component: {fileID: 1583340897276231090}
   - component: {fileID: 970727557644640853}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 10-alienplanet
   m_TagString: Ground
   m_Icon: {fileID: 0}

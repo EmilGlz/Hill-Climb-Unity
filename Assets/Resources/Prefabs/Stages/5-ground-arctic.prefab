@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 122797587905576967}
   - component: {fileID: 7007117691795377677}
   - component: {fileID: 8455619750549860553}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 5-ground-arctic
   m_TagString: Ground
   m_Icon: {fileID: 0}

@@ -21,10 +21,8 @@ namespace Scripts.Managers
         [SerializeField] public Transform PopupCanvas;
         public void OpenGameOverMenu(string title)
         {
-            EnterView<GameOverView>();
-            var menu = GetMenuByName("GameOverCanvas");
-            var titleText = Utils.FindGameObject("TitleText", menu).GetComponent<TMP_Text>();
-            titleText.text = title;
+            var view = GetCurrentView() as GameView;
+            view.OpenGameOverMenu();
         }
 
         public void RestartGame()
@@ -56,14 +54,27 @@ namespace Scripts.Managers
                 if (typeName == item.GetViewName())
                 {
                     item.gameObject.SetActive(true);
-                    LoadingPopup.Show();
-                    await Task.Delay((int)(LoadingPopup.AnimTime * 1000));
                     await item.EnterView();
-                    LoadingPopup.CloseAnim();
                 }
                 else
                     item.ExitView();
             }
+        }
+
+        private View GetCurrentView()
+        {
+            foreach (var item in Menus)
+                if (item.gameObject.activeInHierarchy)
+                    return item;
+            return null;
+        }
+
+        public void UpdateBonus(int bonus)
+        {
+            var view = GetCurrentView();
+            if (!(view is GameView gameView))
+                return;
+            gameView.UpdateBonus(bonus);
         }
     }
 }

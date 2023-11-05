@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8542247485328019176}
   - component: {fileID: 1873080993940849998}
   - component: {fileID: 8663811869743521567}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 6-ground-cave
   m_TagString: Ground
   m_Icon: {fileID: 0}

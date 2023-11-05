@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 950958792850152468}
   - component: {fileID: 5944019863907867269}
   - component: {fileID: 5830838937898636715}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 9-forest
   m_TagString: Ground
   m_Icon: {fileID: 0}

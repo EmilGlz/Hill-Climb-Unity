@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2194995970865227444}
   - component: {fileID: 1186174445366506733}
   - component: {fileID: 3956141235229337936}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 4-ground-desert
   m_TagString: Ground
   m_Icon: {fileID: 0}
