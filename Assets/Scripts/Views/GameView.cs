@@ -20,7 +20,7 @@ namespace Scripts.Views
             await base.EnterView();
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
             _stage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
-            GameManager.Instance.Camera.Follow = _car.transform;
+            GameManager.Instance.VirtualCamera.Follow = _car.transform;
 
             _bonusText = Utils.FindGameObject("BonusText", gameObject).GetComponent<TMP_Text>();
             _bonusText.gameObject.SetActive(true);

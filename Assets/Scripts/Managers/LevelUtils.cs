@@ -9,6 +9,8 @@ public static class LevelUtils
         car.transform.position = Vector3.zero + Vector3.up * 5f + Vector3.right * 5f;
         var carController = car.GetComponent<VehicleController>();
         carController.Init(carData);
+        var currentGravity = Settings.User.currentSelectedStage.gravityScale;
+        car.GetComponent<Rigidbody2D>().gravityScale = currentGravity;
         return car;
     }
 
@@ -22,7 +24,7 @@ public static class LevelUtils
 
     public static void UpdateSkyBackground(StageData data)
     {
-        var backgroundSprite = Utils.FindGameObject("Background", GameManager.Instance.Camera.gameObject).GetComponent<SpriteRenderer>();
+        var backgroundSprite = Utils.FindGameObject("Background", GameManager.Instance.MainCamera.gameObject).GetComponent<SpriteRenderer>();
         backgroundSprite.gameObject.SetActive(true);
         backgroundSprite.sprite = data.skySprite;
     }

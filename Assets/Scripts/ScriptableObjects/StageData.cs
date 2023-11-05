@@ -12,4 +12,5 @@ public class StageData : ScriptableObject
     public string prefabPath;
 
     public int currentRecord;
+    public float gravityScale = 1;
 }

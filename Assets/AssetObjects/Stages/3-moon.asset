@@ -23,3 +23,4 @@ MonoBehaviour:
     the content will sit
   prefabPath: Prefabs/Stages/3-ground-moon
   currentRecord: 0
+  gravityScale: 0.1

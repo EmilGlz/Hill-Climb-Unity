@@ -9,13 +9,15 @@ namespace Scripts.Managers
     {
         public static GameManager Instance;
         public Action OnUpdate;
-        public CinemachineVirtualCamera Camera;
+        public CinemachineVirtualCamera VirtualCamera;
+        [HideInInspector] public Camera MainCamera;
         private void Awake()
         {
             Instance = this;
         }
         private void Start()
         {
+            MainCamera = Camera.main;
             Settings.User = ItemController.instance.userData;
             if (Settings.User.currentSelectedStage == null || Settings.User.currentSelectedCar == null)
             {
