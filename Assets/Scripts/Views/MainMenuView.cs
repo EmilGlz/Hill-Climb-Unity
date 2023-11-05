@@ -42,6 +42,7 @@ namespace Scripts.Views
             homeTabs.transform.DestroyAllChildren();
             _tabItemList = await MainMenuTabItemList.CreateAsync(ItemController.instance.mainMenuTabDatas, homeTabs.transform, UpdateView);
             Settings.OnPurchase += UpdateBudgetUI;
+            UpdateBudgetUI();
         }
 
         public View CurrentView => _currentView;

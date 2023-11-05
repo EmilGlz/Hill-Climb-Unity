@@ -1,5 +1,6 @@
 using Scripts.Managers;
 using ScriptsPhysicsAndMechanics;
+using UnityEditor.EditorTools;
 using UnityEngine;
 public static class LevelUtils
 {
@@ -27,6 +28,19 @@ public static class LevelUtils
         var backgroundSprite = Utils.FindGameObject("Background", GameManager.Instance.MainCamera.gameObject).GetComponent<SpriteRenderer>();
         backgroundSprite.gameObject.SetActive(true);
         backgroundSprite.sprite = data.skySprite;
+        FitCameraToSprite();
+
+
+
+        void FitCameraToSprite()
+        {
+            if (backgroundSprite != null)
+            {
+                float spriteHeight = backgroundSprite.bounds.size.y;
+                float orthographicSize = spriteHeight / 2.0f;
+                GameManager.Instance.MainCamera.orthographicSize = orthographicSize;
+            }
+        }
     }
 
 }

@@ -89,5 +89,11 @@ namespace ScriptsPhysicsAndMechanics
             _backTireRB.AddTorque(tireTorque);
             _carRB.AddTorque(_moveInput * _rotationSpeed * Time.fixedDeltaTime);
         }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject != null && collision.gameObject.CompareTag("Coin500"))
+                Utils.HideCoin(collision.gameObject);
+        }
     }
 }

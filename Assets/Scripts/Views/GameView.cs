@@ -14,9 +14,12 @@ namespace Scripts.Views
         private TMP_Text _bonusText;
         private TMP_Text _budgetText;
         private GameOverView _gameOverView;
+        private int _currentCollectedCoins;
         public override async Task EnterView()
         {
+            GameManager.Instance.OnCoinCollected += OnCoinCollected;
             LoadingPopup.Show();
+            _currentCollectedCoins = 0;
             await base.EnterView();
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
             _stage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
@@ -39,6 +42,12 @@ namespace Scripts.Views
             LoadingPopup.CloseAnim();
         }
 
+        private void OnCoinCollected(int coins)
+        {
+            _currentCollectedCoins += coins;
+            UpdateBonus(coins);
+        }
+
         public void UpdateBonus(int bonus)
         {
             _bonusText.gameObject.SetActive(true);
@@ -58,10 +67,13 @@ namespace Scripts.Views
         public void OpenGameOverMenu()
         {
             _gameOverView.EnterView();
+            _gameOverView.Init(_distanceController.Distance, _currentCollectedCoins);
         }
 
         public override void ExitView()
         {
+            GameManager.Instance.OnCoinCollected -= OnCoinCollected;
+            _currentCollectedCoins = 0;
             Settings.OnPurchase -= UpdateBudgetUI;
             base.ExitView();
 

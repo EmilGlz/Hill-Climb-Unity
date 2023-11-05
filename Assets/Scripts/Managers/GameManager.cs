@@ -11,6 +11,7 @@ namespace Scripts.Managers
         public Action OnUpdate;
         public CinemachineVirtualCamera VirtualCamera;
         [HideInInspector] public Camera MainCamera;
+        public Action<int> OnCoinCollected;
         private void Awake()
         {
             Instance = this;

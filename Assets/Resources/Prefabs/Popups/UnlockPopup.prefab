@@ -794,7 +794,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 10
   m_ChildAlignment: 1
-  m_Spacing: 30
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -1161,7 +1161,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 172.9249, y: 0}
-  m_SizeDelta: {x: 345.8498, y: 0}
+  m_SizeDelta: {x: 345.8498, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6389193193223656976
 MonoBehaviour:
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &5372081448153046557
 GameObject:
   m_ObjectHideFlags: 0

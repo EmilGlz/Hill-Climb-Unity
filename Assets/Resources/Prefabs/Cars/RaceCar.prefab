@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1031832804050735620}
   - component: {fileID: 1835934626394373316}
   - component: {fileID: 4985819483497201911}
+  - component: {fileID: 2578213831622134937}
   m_Layer: 0
   m_Name: back-tire
   m_TagString: Untagged
@@ -148,6 +149,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2578213831622134937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890997768023617864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fd601bdb360254884b74ebb872d13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1139521556183945532
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +347,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!235 &7038207731537017705
 WheelJoint2D:
@@ -415,6 +428,7 @@ GameObject:
   - component: {fileID: 8667432590806776676}
   - component: {fileID: 3863752746762338332}
   - component: {fileID: 5585130418844559625}
+  - component: {fileID: 1582860298205461490}
   m_Layer: 0
   m_Name: front-tire
   m_TagString: Untagged
@@ -551,6 +565,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1582860298205461490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611424025533424538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fd601bdb360254884b74ebb872d13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2034421682535692051
 GameObject:
   m_ObjectHideFlags: 0

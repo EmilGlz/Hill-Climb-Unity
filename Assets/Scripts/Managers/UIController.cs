@@ -1,9 +1,6 @@
-using Scripts.UI;
 using Scripts.UI.Popups;
 using Scripts.Views;
 using System;
-using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Scripts.Managers

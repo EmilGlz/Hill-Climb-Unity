@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Scripts.Managers;
 using System;
 using System.Collections;
@@ -40,5 +41,19 @@ public static class Utils
         }
 
         action?.Invoke();
+    }
+
+    public static void HideCoin(GameObject coin)
+    {
+        if (coin.name == "Collected")
+            return;
+        var sr = coin.GetComponent<SpriteRenderer>();
+        var currentPosY = coin.transform.position.y;
+        coin.name = "Collected";
+        sr.DOColor(new Color(1, 1, 1, 0), 0.5f);
+        coin.transform.DOMoveY(currentPosY + 2f, 0.5f).OnComplete(() =>
+        {
+            UnityEngine.Object.Destroy(coin);
+        });
     }
 }

@@ -35,7 +35,8 @@ namespace Scripts.Views
 
         public CarData GetCurrentSelectedCarData()
         {
-            return _scrollView.CurrentSelectedItem?.Data as CarData;
+            var data = _scrollView.CurrentSelectedItem?.Data;
+            return data == null ? null : (CarData)data;
         }
 
         public CarItem GetCurrentSelectedItem()

@@ -9,6 +9,7 @@ namespace Scripts.Managers
         private readonly TMP_Text _text;
         private readonly Transform _player;
         private readonly Vector3 startPos;
+        public int Distance { get; private set; }
 
         public DistanceController(TMP_Text text, Transform player)
         {
@@ -27,10 +28,10 @@ namespace Scripts.Managers
         {
             if (_player == null)
                 return;
-            var distance = (_player.position - startPos);
-            if (distance.x < 0)
-                distance.x = 0;
-            _text.text = distance.x.ToString("F0") + " m";
+            var Distance = (_player.position - startPos);
+            if (Distance.x < 0)
+                Distance.x = 0;
+            _text.text = Distance.x.ToString("F0") + " m";
         }
     }
 }
