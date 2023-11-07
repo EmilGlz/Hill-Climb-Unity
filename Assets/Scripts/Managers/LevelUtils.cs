@@ -1,6 +1,4 @@
 using Scripts.Managers;
-using ScriptsPhysicsAndMechanics;
-using UnityEditor.EditorTools;
 using UnityEngine;
 public static class LevelUtils
 {
@@ -8,10 +6,6 @@ public static class LevelUtils
     {
         var car = ResourceHelper.InstantiatePrefab(carData.prefabPath, null);
         car.transform.position = Vector3.zero + Vector3.up * 5f + Vector3.right * 5f;
-        var carController = car.GetComponent<VehicleController>();
-        carController.Init(carData);
-        var currentGravity = Settings.User.currentSelectedStage.gravityScale;
-        car.GetComponent<Rigidbody2D>().gravityScale = currentGravity;
         return car;
     }
 
@@ -41,6 +35,13 @@ public static class LevelUtils
                 GameManager.Instance.MainCamera.orthographicSize = orthographicSize;
             }
         }
+    }
+
+    public static float GetWidth(GameObject ground)
+    {
+        var startPos = Utils.FindGameObject("GroundStart", ground).transform.position;
+        var endPos = Utils.FindGameObject("GroundEnd", ground).transform.position;
+        return endPos.x - startPos.x;
     }
 
 }

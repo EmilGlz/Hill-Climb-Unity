@@ -16,6 +16,8 @@ namespace Scripts.Managers
         #endregion
         [SerializeField] private View[] Menus;
         [SerializeField] public Transform PopupCanvas;
+        [SerializeField] public Gradient FuelGradient;
+
         public void OpenGameOverMenu(string title)
         {
             var view = GetCurrentView() as GameView;

@@ -37,7 +37,7 @@ namespace Scripts.Views
 
         public StageData GetCurrentSelectedStageData()
         {
-            var data = _scroll.CurrentSelectedItem?.Data;
+            var data = _scroll?.CurrentSelectedItem?.Data;
             return data == null ? null : (StageData)data;
         }
 

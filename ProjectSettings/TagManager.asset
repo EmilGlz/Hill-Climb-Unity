@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - Coin500
+  - Coin100
+  - Coin50
+  - GroundStart
+  - GroundEnd
+  - Fuel
   layers:
   - Default
   - TransparentFX

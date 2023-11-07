@@ -1,5 +1,8 @@
+using Assets.Scripts.Tests;
 using Scripts.Managers;
 using Scripts.UI;
+using ScriptsPhysicsAndMechanics;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -9,20 +12,52 @@ namespace Scripts.Views
     public class GameView : View
     {
         private GameObject _car;
-        private GameObject _stage;
+        private GameObject _currentStage;
         private DistanceController _distanceController;
+        private FuelController _fuelController;
         private TMP_Text _bonusText;
         private TMP_Text _budgetText;
         private GameOverView _gameOverView;
         private int _currentCollectedCoins;
+        private List<GameObject> _stages;
+
+        private GameObject CurrentStage
+        {
+            get { return _currentStage; }
+            set
+            {
+                ShowTest.instance.CurrentStage = value;
+                _currentStage = value;
+            }
+        }
+
         public override async Task EnterView()
         {
             GameManager.Instance.OnCoinCollected += OnCoinCollected;
             LoadingPopup.Show();
             _currentCollectedCoins = 0;
+            _fuelController = new FuelController();
             await base.EnterView();
+
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
-            _stage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
+            var carController = _car.GetComponent<VehicleController>();
+            carController.Init(Settings.User.currentSelectedCar, OnGroundStartReached, OnGroundEndReached);
+            var currentGravity = Settings.User.currentSelectedStage.gravityScale;
+            _car.GetComponent<Rigidbody2D>().gravityScale = currentGravity;
+
+            _stages = new List<GameObject>();
+            for (int i = 0; i < 2; i++)
+            {
+                var newStage = LevelUtils.InstantiateStage(Settings.User.currentSelectedStage);
+                newStage.name = "Stage " + i;
+                _stages.Add(newStage);
+            }
+            CurrentStage = _stages[0];
+            _stages[0].transform.position = Vector3.zero;
+            var endPos = Utils.FindGameObject("GroundEnd", CurrentStage).transform.position;
+            var startPos = Utils.FindGameObject("GroundStart", CurrentStage).transform.position;
+            _stages[1].transform.position = _stages[0].transform.position + Vector3.left * LevelUtils.GetWidth(_stages[1]) + Vector3.up * (startPos.y - endPos.y);
+
             GameManager.Instance.VirtualCamera.Follow = _car.transform;
 
             _bonusText = Utils.FindGameObject("BonusText", gameObject).GetComponent<TMP_Text>();
@@ -40,6 +75,41 @@ namespace Scripts.Views
             _gameOverView.ExitView();
 
             LoadingPopup.CloseAnim();
+        }
+
+        private GameObject GetNotCurrentStage()
+        {
+            GetCurrentStage();
+            return CurrentStage == _stages[0] ? _stages[1] : _stages[0];
+        }
+
+        private void GetCurrentStage()
+        {
+            foreach (var stage in _stages)
+            {
+                var startPos = Utils.FindGameObject("GroundStart", stage);
+                var endPos = Utils.FindGameObject("GroundEnd", stage);
+                if (_car.transform.position.x < endPos.transform.position.x && _car.transform.position.x > startPos.transform.position.x)
+                    CurrentStage = stage;
+            }
+        }
+
+        private void OnGroundEndReached(GameObject collider)
+        {
+            var movingGround = GetNotCurrentStage();
+            var endPos = Utils.FindGameObject("GroundEnd", CurrentStage).transform.position;
+            var startPos = Utils.FindGameObject("GroundStart", CurrentStage).transform.position;
+            movingGround.transform.position = CurrentStage.transform.position + LevelUtils.GetWidth(CurrentStage) * Vector3.right + Vector3.up * (endPos.y - startPos.y);
+            GetCurrentStage();
+        }
+
+        private void OnGroundStartReached(GameObject collider) // when user goes background
+        {
+            if (collider.transform.parent != CurrentStage)
+                return;
+            var movingGround = GetNotCurrentStage();
+            movingGround.transform.position = CurrentStage.transform.position + LevelUtils.GetWidth(CurrentStage) * Vector3.left;
+            GetCurrentStage();
         }
 
         private void OnCoinCollected(int coins)
@@ -73,10 +143,14 @@ namespace Scripts.Views
         public override void ExitView()
         {
             GameManager.Instance.OnCoinCollected -= OnCoinCollected;
-            _currentCollectedCoins = 0;
             Settings.OnPurchase -= UpdateBudgetUI;
+            _currentCollectedCoins = 0;
             base.ExitView();
-
+            if (_fuelController != null)
+            {
+                _fuelController.Dispose();
+                _fuelController = null;
+            }
             if (_gameOverView != null)
             {
                 _gameOverView.ExitView();
@@ -92,11 +166,16 @@ namespace Scripts.Views
                 Destroy(_car);
                 _car = null;
             }
-            if (_stage != null)
+            if (_stages != null)
             {
-                Destroy(_stage);
-                _stage = null;
+
+                foreach (var item in _stages)
+                {
+                    if (item != null)
+                        Destroy(item);
+                }
             }
+            CurrentStage = null;
             gameObject.SetActive(false);
         }
     }

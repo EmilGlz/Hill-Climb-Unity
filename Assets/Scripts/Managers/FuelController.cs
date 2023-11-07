@@ -1,28 +1,29 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Scripts.Managers
 {
-    public class FuelController : MonoBehaviour
+    public class FuelController : IDisposable
     {
-        public static FuelController Instance;
-
-        [SerializeField] private Image _fuelImage;
-        [SerializeField] private float _fuelDrainSpeed = 1f;
-        [SerializeField] private float _maxFuelAmount = 100f;
-        [SerializeField] private Gradient _gradient;
+        private readonly Image _fuelImage;
+        private readonly float _fuelDrainSpeed = 1f;
+        private readonly float _maxFuelAmount = 100f;
 
         private float _currentFuelAmount;
 
-        private void Awake()
+        public FuelController(float currentValue = 100, float maxValue = 100)
         {
-            if (Instance == null)
-                Instance = this;
-        }
-
-        private void Start()
-        {
+            _fuelImage = Utils.FindGameObject("FuelFront", UIController.instance.GetCurrentView().gameObject).GetComponent<Image>();
+            _currentFuelAmount = currentValue;
+            _maxFuelAmount = maxValue;
+            GameManager.Instance.OnUpdate += Update;
             _currentFuelAmount = _maxFuelAmount;
             UpdateUI();
+        }
+
+        public void Dispose()
+        {
+            GameManager.Instance.OnUpdate -= Update;
         }
 
         private void Update()
@@ -38,7 +39,7 @@ namespace Scripts.Managers
         private void UpdateUI()
         {
             _fuelImage.fillAmount = (_currentFuelAmount / _maxFuelAmount);
-            _fuelImage.color = _gradient.Evaluate(_fuelImage.fillAmount);
+            _fuelImage.color = UIController.instance.FuelGradient.Evaluate(_fuelImage.fillAmount);
         }
     }
 }
