@@ -28,6 +28,16 @@ namespace Assets.Scripts.Tests
         {
             Settings.HeadImmortal = false;
         }
+        [MenuItem("Hill Climb/Pedals/Show")]
+        public static void ShowPedals()
+        {
+            Settings.ShowPedalsInEditor = true;
+        }
+        [MenuItem("Hill Climb/Pedals/Hide")]
+        public static void HidePedals()
+        {
+            Settings.ShowPedalsInEditor = false;
+        }
 
 #endif
     }

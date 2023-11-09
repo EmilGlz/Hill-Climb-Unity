@@ -6,7 +6,7 @@ namespace Scripts.Managers
     public class FuelController : IDisposable
     {
         private readonly Image _fuelImage;
-        private readonly float _fuelDrainSpeed = 1f;
+        private readonly float _fuelDrainSpeed = 3f;
         private readonly float _maxFuelAmount = 100f;
 
         private float _currentFuelAmount;
@@ -21,9 +21,9 @@ namespace Scripts.Managers
             UpdateUI();
         }
 
-        public void Dispose()
+        public void FillUpFuel()
         {
-            GameManager.Instance.OnUpdate -= Update;
+            _currentFuelAmount = _maxFuelAmount;
         }
 
         private void Update()
@@ -40,6 +40,10 @@ namespace Scripts.Managers
         {
             _fuelImage.fillAmount = (_currentFuelAmount / _maxFuelAmount);
             _fuelImage.color = UIController.instance.FuelGradient.Evaluate(_fuelImage.fillAmount);
+        }
+        public void Dispose()
+        {
+            GameManager.Instance.OnUpdate -= Update;
         }
     }
 }

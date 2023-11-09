@@ -31,4 +31,13 @@ public static class ResourceHelper
         GameObject instantiatedObject = GameObject.Instantiate(prefab, parent);
         return instantiatedObject;
     }
+    public static async Task<Sprite> LoadSpriteAsync(string spritePath)
+    {
+        ResourceRequest request = Resources.LoadAsync<Sprite>(spritePath);
+        await Task.Yield(); 
+        while (!request.isDone)
+            await Task.Yield(); 
+
+        return (Sprite)request.asset;
+    }
 }

@@ -1,11 +1,11 @@
 using Scripts.Managers;
 using System;
-using System.IO;
 using UnityEngine;
 
 public static class Settings
 {
     public static Action OnPurchase;
+    public static Action OnFuelCollected;
     public static bool InfiniteFuelOn
     {
         get
@@ -32,6 +32,26 @@ public static class Settings
             PlayerPrefs.SetInt("HeadImmortal", res);
         }
     }
+    public static bool ShowPedalsInEditor
+    {
+        get
+        {
+            var res = PlayerPrefs.GetInt("ShowPedalsInEditor");
+            return res == 1;
+        }
+        set
+        {
+            var res = value ? 1 : 0;
+            PlayerPrefs.SetInt("ShowPedalsInEditor", res);
+        }
+    }
+    private static bool _showPedals;
+    public static bool ShowPedals
+    {
+        get => _showPedals;
+        set => _showPedals = value;
+    }
+
     private static UserData _user;
     public static UserData User
     {

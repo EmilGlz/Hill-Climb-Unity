@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Scripts.Views
 {
@@ -39,9 +40,12 @@ namespace Scripts.Views
             _fuelController = new FuelController();
             await base.EnterView();
 
+            var gasButton = Utils.FindGameObject("GasButton", gameObject);
+            var brakeButton = Utils.FindGameObject("BrakeButton", gameObject);
+
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
             var carController = _car.GetComponent<VehicleController>();
-            carController.Init(Settings.User.currentSelectedCar, OnGroundStartReached, OnGroundEndReached);
+            carController.Init(Settings.User.currentSelectedCar, OnGroundStartReached, OnGroundEndReached, gasButton, brakeButton);
             var currentGravity = Settings.User.currentSelectedStage.gravityScale;
             _car.GetComponent<Rigidbody2D>().gravityScale = currentGravity;
 
@@ -70,11 +74,17 @@ namespace Scripts.Views
             var distanceText = Utils.FindGameObject("DistanceText", gameObject).GetComponent<TMP_Text>();
             _distanceController = new DistanceController(distanceText, _car.transform);
             Settings.OnPurchase += UpdateBudgetUI;
+            Settings.OnFuelCollected += FillUpFuel;
 
             _gameOverView = Utils.FindGameObject("GameOverView", gameObject).GetComponent<GameOverView>();
             _gameOverView.ExitView();
 
             LoadingPopup.CloseAnim();
+        }
+
+        private void FillUpFuel()
+        {
+            _fuelController.FillUpFuel();
         }
 
         private GameObject GetNotCurrentStage()
@@ -143,6 +153,7 @@ namespace Scripts.Views
         public override void ExitView()
         {
             GameManager.Instance.OnCoinCollected -= OnCoinCollected;
+            Settings.OnFuelCollected -= FillUpFuel;
             Settings.OnPurchase -= UpdateBudgetUI;
             _currentCollectedCoins = 0;
             base.ExitView();

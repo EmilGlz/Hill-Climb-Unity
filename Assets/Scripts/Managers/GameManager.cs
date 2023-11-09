@@ -26,6 +26,7 @@ namespace Scripts.Managers
                 Settings.User.currentSelectedCar = Settings.User.ownedCars[0];
             }
             UIController.instance.EnterView<MainMenuView>();
+            Settings.ShowPedals = Device.IsMobile ? true : Device.IsEditor ? Settings.ShowPedalsInEditor : true;
         }
         private void Update()
         {

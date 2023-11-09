@@ -3,6 +3,7 @@ using Scripts.Views;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 namespace Scripts.Managers
 {
     public class UIController : MonoBehaviour
@@ -17,6 +18,45 @@ namespace Scripts.Managers
         [SerializeField] private View[] Menus;
         [SerializeField] public Transform PopupCanvas;
         [SerializeField] public Gradient FuelGradient;
+
+        [SerializeField] private Sprite _gasPedalPressedSprite;
+        [SerializeField] private Sprite _gasPedalSprite;
+        [SerializeField] private Sprite _brakePedalSprite;
+        [SerializeField] private Sprite _brakePedalPressedSprite;
+        private const string _gasPedalSpritePath = "Sprites/pedal-gas-normal";
+        private const string _gasPedalPressedSpritePath = "Sprites/pedal-gas-pressed";
+        private const string _brakePedalSpritePath = "Sprites/pedal-brake-normal";
+        private const string _brakePedalPressedSpritePath = "Sprites/pedal-brake-pressed";
+
+        private async void Start()
+        {
+            _gasPedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalPressedSpritePath);
+            _gasPedalSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalSpritePath);
+            _brakePedalSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalSpritePath);
+            _brakePedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalPressedSpritePath);
+        }
+
+        public void PedalPressed(GameObject pedalImage, bool isGas)
+        {
+            Image img = pedalImage.GetComponent<Image>();
+            if (img == null || _gasPedalPressedSprite == null || _brakePedalPressedSprite == null)
+                return;
+            if (isGas)
+                img.sprite = _gasPedalPressedSprite;
+            else
+                img.sprite = _brakePedalPressedSprite;
+        }
+
+        public void PedalNotPressed(GameObject pedalImage, bool isGas)
+        {
+            Image img = pedalImage.GetComponent<Image>();
+            if (img == null || _gasPedalPressedSprite == null || _brakePedalPressedSprite == null)
+                return;
+            if (isGas)
+                img.sprite = _gasPedalSprite;
+            else
+                img.sprite = _brakePedalSprite;
+        }
 
         public void OpenGameOverMenu(string title)
         {

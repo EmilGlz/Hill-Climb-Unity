@@ -3,6 +3,8 @@ using Scripts.Managers;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 public static class Utils
 {
     public static GameObject FindGameObject(string name, GameObject parentOrSelf)
@@ -56,4 +58,30 @@ public static class Utils
             UnityEngine.Object.Destroy(coin);
         });
     }
+
+    public static void SetImageSprite(Image image, Sprite sprite)
+    {
+        image.sprite = sprite;
+    }
+
+    public static void AddEventToButton(GameObject obj, EventTriggerType eventTriggerType, Action callbackAction)
+    {
+        EventTrigger eventTrigger = obj.GetComponent<EventTrigger>() ?? obj.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new()
+        {
+            eventID = eventTriggerType
+        };
+
+        entry.callback.AddListener((eventData) => callbackAction());
+
+        eventTrigger.triggers.Add(entry);
+    }
+}
+
+enum InputState
+{
+    None,
+    GasPressed,
+    BrakePressed,
+    GasAndBrakePressed
 }
