@@ -28,6 +28,7 @@ namespace Scripts.Views
             var content = Utils.FindGameObject("Content", gameObject);
             var homeTabs = Utils.FindGameObject("HomeTabs", gameObject);
             var settingsButton = Utils.FindGameObject("SettingsButton", gameObject).GetComponent<Button>();
+            content.GetComponent<RectTransform>().SetHeight(Device.Height * 0.72f);
             settingsButton.onClick.RemoveAllListeners();
             settingsButton.onClick.AddListener(() =>
             {
@@ -115,7 +116,6 @@ namespace Scripts.Views
             if (IsStartButton(tabData))
             {
                 UIController.instance.EnterView<GameView>();
-                LevelUtils.UpdateSkyBackground(Settings.User.currentSelectedStage);
                 return;
             }
             await _currentView.EnterView();

@@ -32,6 +32,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa32e9a549814ee4cb2e5365c40f9575, type: 2}
   - {fileID: 11400000, guid: 88a0e305c63613a4ab70437945eb72c4, type: 2}
   - {fileID: 11400000, guid: 9b0f460c23f5a9340abfb19fa54ab816, type: 2}
-  budget: 10000000
-  currentSelectedCar: {fileID: 11400000, guid: 44f12d4001fc3e84db2a98c812068a62, type: 2}
-  currentSelectedStage: {fileID: 11400000, guid: f3bcd1b91b0bea9499d2a360213d10c8, type: 2}
+  budget: 0
+  currentSelectedCar: {fileID: 11400000, guid: f9671c257081882459a528029db9e9bd, type: 2}
+  currentSelectedStage: {fileID: 11400000, guid: f76cfe3608f3f254a82f5471d36d6dc2, type: 2}

@@ -7,11 +7,14 @@ public class TireDetector : MonoBehaviour
     {
         if (collision.gameObject != null && collision.gameObject.CompareTag("Coin500"))
         {
-            Settings.OnFuelCollected?.Invoke();
+            Settings.OnCoinCollected?.Invoke(500);
             Utils.HideCoin(collision.gameObject);
         }
         if (collision.gameObject != null && collision.gameObject.CompareTag("Fuel"))
+        {
+            Settings.OnFuelCollected?.Invoke();
             Utils.HideCoin(collision.gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

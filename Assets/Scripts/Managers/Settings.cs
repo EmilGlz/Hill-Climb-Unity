@@ -6,6 +6,8 @@ public static class Settings
 {
     public static Action OnPurchase;
     public static Action OnFuelCollected;
+    public static Action<int> OnCoinCollected;
+    public static Action<int> OnAirBonus;
     public static bool InfiniteFuelOn
     {
         get

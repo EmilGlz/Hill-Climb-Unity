@@ -19,8 +19,9 @@ namespace Scripts.Views
         private TMP_Text _bonusText;
         private TMP_Text _budgetText;
         private GameOverView _gameOverView;
-        private int _currentCollectedCoins;
         private List<GameObject> _stages;
+        private int _budgetBefore;
+        private int CurrentCollectedCoins => Settings.User.budget - _budgetBefore;
 
         private GameObject CurrentStage
         {
@@ -34,9 +35,8 @@ namespace Scripts.Views
 
         public override async Task EnterView()
         {
-            GameManager.Instance.OnCoinCollected += OnCoinCollected;
             LoadingPopup.Show();
-            _currentCollectedCoins = 0;
+            _budgetBefore = Settings.User.budget;
             _fuelController = new FuelController();
             await base.EnterView();
 
@@ -57,6 +57,7 @@ namespace Scripts.Views
                 _stages.Add(newStage);
             }
             CurrentStage = _stages[0];
+            LevelUtils.UpdateSkyBackground(Settings.User.currentSelectedStage);
             _stages[0].transform.position = Vector3.zero;
             var endPos = Utils.FindGameObject("GroundEnd", CurrentStage).transform.position;
             var startPos = Utils.FindGameObject("GroundStart", CurrentStage).transform.position;
@@ -73,8 +74,9 @@ namespace Scripts.Views
 
             var distanceText = Utils.FindGameObject("DistanceText", gameObject).GetComponent<TMP_Text>();
             _distanceController = new DistanceController(distanceText, _car.transform);
-            Settings.OnPurchase += UpdateBudgetUI;
+
             Settings.OnFuelCollected += FillUpFuel;
+            Settings.OnCoinCollected += OnCoinCollected;
 
             _gameOverView = Utils.FindGameObject("GameOverView", gameObject).GetComponent<GameOverView>();
             _gameOverView.ExitView();
@@ -124,8 +126,8 @@ namespace Scripts.Views
 
         private void OnCoinCollected(int coins)
         {
-            _currentCollectedCoins += coins;
-            UpdateBonus(coins);
+            Settings.User.budget += coins;
+            UpdateBudgetUI();
         }
 
         public void UpdateBonus(int bonus)
@@ -137,6 +139,7 @@ namespace Scripts.Views
                 _bonusText.text = "AIR TIME" + "\n+ " + bonus;
             else
                 _bonusText.text = "";
+            UpdateBudgetUI();
         }
 
         public void UpdateBudgetUI()
@@ -147,15 +150,13 @@ namespace Scripts.Views
         public void OpenGameOverMenu()
         {
             _gameOverView.EnterView();
-            _gameOverView.Init(_distanceController.Distance, _currentCollectedCoins);
+            _gameOverView.Init((int)_distanceController.Distance, CurrentCollectedCoins);
         }
 
         public override void ExitView()
         {
-            GameManager.Instance.OnCoinCollected -= OnCoinCollected;
+            Settings.OnCoinCollected -= OnCoinCollected;
             Settings.OnFuelCollected -= FillUpFuel;
-            Settings.OnPurchase -= UpdateBudgetUI;
-            _currentCollectedCoins = 0;
             base.ExitView();
             if (_fuelController != null)
             {

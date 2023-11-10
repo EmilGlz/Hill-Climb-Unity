@@ -17,7 +17,6 @@ namespace ScriptsPhysicsAndMechanics
         private Action<GameObject> _onGroundStartReached;
         private Action<GameObject> _onGroundFinishReached;
         private CarData _carData;
-        private int _currentMatchCoins;
 
         private bool _isCheckingAirTime;
         private bool _touchingGround;
@@ -28,10 +27,9 @@ namespace ScriptsPhysicsAndMechanics
             {
                 _touchingGround = value;
                 if (_touchingGround)
-                    mustStopAirTime = true;
+                     _mustStopAirTime = true;
             }
         }
-        private bool mustStopAirTime = false;
 
         private GameObject _gasButton;
         private GameObject _brakeButton;
@@ -42,6 +40,8 @@ namespace ScriptsPhysicsAndMechanics
 
         #region Singleton
         public static VehicleController Instance;
+        private bool _mustStopAirTime;
+
         private void Awake()
         {
             Instance = this;
@@ -50,7 +50,6 @@ namespace ScriptsPhysicsAndMechanics
 
         private void Start()
         {
-            _currentMatchCoins = 0;
             _isCheckingAirTime = false;
         }
 
@@ -111,15 +110,14 @@ namespace ScriptsPhysicsAndMechanics
                 UIController.instance.UpdateBonus(0);
                 yield break;
             }
-            mustStopAirTime = false;
-            while (!TouchingGround && !mustStopAirTime)
+            else
+                _mustStopAirTime = false;
+            while (!TouchingGround && !_mustStopAirTime)
             {
                 yield return new WaitForSeconds(0.5f);
-                _currentMatchCoins += 500;
-                currentAirBonus += 500;
                 Settings.User.budget += 500;
+                currentAirBonus += 500;
                 UIController.instance.UpdateBonus(currentAirBonus);
-                Settings.OnPurchase?.Invoke();
             }
             UIController.instance.UpdateBonus(0);
             _isCheckingAirTime = false;
@@ -165,13 +163,11 @@ namespace ScriptsPhysicsAndMechanics
             _carRB.AddTorque(_moveInput * _rotationSpeed * Time.fixedDeltaTime);
         }
 
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject != null && collision.gameObject.CompareTag("Coin500"))
             {
-                Settings.User.budget += 500;
-                Settings.OnPurchase?.Invoke();
+                Settings.OnCoinCollected?.Invoke(500);
                 Utils.HideCoin(collision.gameObject);
             }
             else if (collision.gameObject != null && collision.gameObject.CompareTag("Fuel"))

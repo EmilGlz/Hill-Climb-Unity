@@ -135,6 +135,7 @@ namespace Scripts.UI
             }
             _content.SetPosX(-targetContentPosition);
             UpdateItemsScale();
+            CurrentSelectedItem = item;
         }
 
         public void ScrollToWithNoAnimation(Item item)
