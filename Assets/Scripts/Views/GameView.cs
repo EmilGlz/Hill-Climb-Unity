@@ -113,14 +113,15 @@ namespace Scripts.Views
             var startPos = Utils.FindGameObject("GroundStart", CurrentStage).transform.position;
             movingGround.transform.position = CurrentStage.transform.position + LevelUtils.GetWidth(CurrentStage) * Vector3.right + Vector3.up * (endPos.y - startPos.y);
             GetCurrentStage();
+            Utils.ShowAllCollectables(movingGround);
         }
 
         private void OnGroundStartReached(GameObject collider) // when user goes background
         {
-            if (collider.transform.parent != CurrentStage)
-                return;
             var movingGround = GetNotCurrentStage();
-            movingGround.transform.position = CurrentStage.transform.position + LevelUtils.GetWidth(CurrentStage) * Vector3.left;
+            var endPos = Utils.FindGameObject("GroundEnd", CurrentStage).transform.position;
+            var startPos = Utils.FindGameObject("GroundStart", CurrentStage).transform.position;
+            movingGround.transform.position = CurrentStage.transform.position - LevelUtils.GetWidth(CurrentStage) * Vector3.right + Vector3.up * (endPos.y - startPos.y);
             GetCurrentStage();
         }
 
