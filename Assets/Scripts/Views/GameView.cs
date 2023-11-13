@@ -28,7 +28,6 @@ namespace Scripts.Views
             get { return _currentStage; }
             set
             {
-                ShowTest.instance.CurrentStage = value;
                 _currentStage = value;
             }
         }

@@ -16,10 +16,11 @@ MonoBehaviour:
   itemName: Highway
   icon: {fileID: 21300000, guid: eb9bd425a7193134ea89dee83d0d5126, type: 3}
   skySprite: {fileID: 21300000, guid: 198f355ddef61c94096824c98b0fc9c3, type: 3}
-  isOpened: 1
-  price: 100000
+  isOpened: 0
+  price: 150000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder
     text used in design when creating content. It helps designers plan out where
     the content will sit
   prefabPath: Prefabs/Stages/2-ground-highway
   currentRecord: 0
+  gravityScale: 1

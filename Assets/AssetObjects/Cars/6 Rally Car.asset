@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Rally Car
   icon: {fileID: 21300000, guid: f6b9dee3b982fef478921474087ce0b6, type: 3}
   isOpened: 0
-  price: 100000
+  price: 500000
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
   prefabPath: Prefabs/Cars/RallyCar

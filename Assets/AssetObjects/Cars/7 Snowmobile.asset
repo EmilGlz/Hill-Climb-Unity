@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Snowmobile
   icon: {fileID: 21300000, guid: b89b012e2ff288d4a86bbf34ae061824, type: 3}
   isOpened: 0
-  price: 100000
+  price: 600000
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
   prefabPath: Prefabs/Cars/Snowmobile

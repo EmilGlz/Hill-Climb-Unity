@@ -17,9 +17,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1e01357b34c46554daf804554de71554, type: 3}
   skySprite: {fileID: 21300000, guid: 27a094525142ed14182aef2a6af5421f, type: 3}
   isOpened: 0
-  price: 3000000
+  price: 1500000
   description: Lorem Ipsum, sometimes referred to as 'lipsum', is the placeholder
     text used in design when creating content. It helps designers plan out where
     the content will sit
   prefabPath: Prefabs/Stages/10-alienplanet
   currentRecord: 0
+  gravityScale: 1

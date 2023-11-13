@@ -23,3 +23,4 @@ MonoBehaviour:
     the content will sit
   prefabPath: Prefabs/Stages/1-ground-countryside
   currentRecord: 0
+  gravityScale: 1
