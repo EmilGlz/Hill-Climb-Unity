@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   itemName: Motorcross Bike
-  icon: {fileID: 21300000, guid: ab53370cf9f879349ab30b739a50f059, type: 3}
-  isOpened: 0
+  icon: {fileID: 21300000, guid: 03fd0c3fd48f44e479032a111f6d40e9, type: 3}
+  isOpened: 1
   price: 150000
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
