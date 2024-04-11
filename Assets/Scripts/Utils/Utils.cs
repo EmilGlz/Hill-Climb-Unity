@@ -68,6 +68,9 @@ public static class Utils
         var nameBefore = coin.name;
         if (coin.name == "Collected")
             return;
+        var collider = coin.GetComponent<CircleCollider2D>();
+        if(collider != null)
+            collider.enabled = false;
         var startPos = coin.transform.position;
         var sr = coin.GetComponent<SpriteRenderer>();
         var currentPosY = coin.transform.position.y;
@@ -85,11 +88,19 @@ public static class Utils
     {
         var fuels = FindGameObjects("Fuel", stage);
         foreach (var fuel in fuels)
+        {
             ShowCollectable(fuel, "Fuel");
+            var collider = fuel.GetComponent<BoxCollider2D>();
+            if (collider != null)
+                collider.enabled = true;
+        }
         var coinsParent = FindGameObject("Coins", stage);
         foreach (Transform child in coinsParent.transform)
         {
             ShowCollectable(child.gameObject, "Coin");
+            var collider = child.GetComponent<CircleCollider2D>();
+            if (collider != null)
+                collider.enabled = true;
         }
     }
 
