@@ -3,12 +3,13 @@ using Scripts.Managers;
 using Scripts.UI;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.UIElements;
 
 namespace Scripts.Views
 {
     public class StagesShopView : View
     {
-        private const string PrefabPath = "Prefabs/Views/ShopScrollView";
+        public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private StagesList _stageList;
         private ScrollScaleController _scroll;
 

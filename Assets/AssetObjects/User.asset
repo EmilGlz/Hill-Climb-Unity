@@ -18,6 +18,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44f12d4001fc3e84db2a98c812068a62, type: 2}
   - {fileID: 11400000, guid: 6d31fb46f7d47ad43b89d733b2eb7afc, type: 2}
   - {fileID: 11400000, guid: d9fc4b333914d36469e3fc14bddafe8d, type: 2}
+  - {fileID: 11400000, guid: c5ac068181c56be4690616f6018bdef2, type: 2}
+  - {fileID: 11400000, guid: bdf65bc85ca9786449dc4f3e48d1ad0f, type: 2}
+  - {fileID: 11400000, guid: 75f8f4167dc822b4dae296752ecc9707, type: 2}
   stages:
   - {fileID: 11400000, guid: 7717874380ac3e141b087ec2455ea70d, type: 2}
   - {fileID: 11400000, guid: f3bcd1b91b0bea9499d2a360213d10c8, type: 2}
@@ -29,6 +32,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa32e9a549814ee4cb2e5365c40f9575, type: 2}
   - {fileID: 11400000, guid: 88a0e305c63613a4ab70437945eb72c4, type: 2}
   - {fileID: 11400000, guid: 9b0f460c23f5a9340abfb19fa54ab816, type: 2}
-  budget: 70500
-  currentSelectedCar: {fileID: 11400000, guid: d9fc4b333914d36469e3fc14bddafe8d, type: 2}
+  budget: 0
+  currentSelectedCar: {fileID: 11400000, guid: 272092a63b19dd14295fce8a8a97fa42, type: 2}
   currentSelectedStage: {fileID: 11400000, guid: 7717874380ac3e141b087ec2455ea70d, type: 2}

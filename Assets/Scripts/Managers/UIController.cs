@@ -23,6 +23,18 @@ namespace Scripts.Managers
         [SerializeField] private Sprite _gasPedalSprite;
         [SerializeField] private Sprite _brakePedalSprite;
         [SerializeField] private Sprite _brakePedalPressedSprite;
+        private const string _gasPedalSpritePath = "Sprites/pedal-gas-normal";
+        private const string _gasPedalPressedSpritePath = "Sprites/pedal-gas-pressed";
+        private const string _brakePedalSpritePath = "Sprites/pedal-brake-normal";
+        private const string _brakePedalPressedSpritePath = "Sprites/pedal-brake-pressed";
+
+        private async void Start()
+        {
+            _gasPedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalPressedSpritePath);
+            _gasPedalSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalSpritePath);
+            _brakePedalSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalSpritePath);
+            _brakePedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalPressedSpritePath);
+        }
 
         public void PedalPressed(GameObject pedalImage, bool isGas)
         {

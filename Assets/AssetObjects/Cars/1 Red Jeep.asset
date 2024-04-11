@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   itemName: Red Jeep
-  icon: {fileID: 21300000, guid: 15ebdc8088795af4381137545dbf72d4, type: 3}
+  icon: {fileID: 21300000, guid: 86afc676359696b4ab9e6739493ad4c2, type: 3}
   isOpened: 1
   price: 100000
   description: It is a long established fact that a reader will be distracted by

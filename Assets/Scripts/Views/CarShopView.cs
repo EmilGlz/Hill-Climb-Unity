@@ -3,12 +3,12 @@ using Scripts.Managers;
 using Scripts.UI;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Unity.VisualScripting;
 namespace Scripts.Views
 {
     public class CarShopView : View
     {
-        private const string PrefabPath = "Prefabs/Views/ShopScrollView";
+        public static string PrefabPath = "Prefabs/Views/ShopScrollView";
         private CarItemList _carItemList;
         private ScrollScaleController _scrollView;
         public override async Task EnterView()

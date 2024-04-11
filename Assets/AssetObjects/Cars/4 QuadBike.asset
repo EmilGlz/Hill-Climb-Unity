@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   itemName: Quad Bike
-  icon: {fileID: 21300000, guid: eaa93cc2597af68469eaa8125650ce7b, type: 3}
-  isOpened: 1
+  icon: {fileID: 21300000, guid: ae206eccff044d54596c79a28e03e757, type: 3}
+  isOpened: 0
   price: 250000
   description: It is a long established fact that a reader will be distracted by
     the readable content of a page when looking at its layout.
