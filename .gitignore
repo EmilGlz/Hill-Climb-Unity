@@ -71,6 +71,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# TextMesh Pro (reimport via Window > TextMeshPro > Import TMP Essential Resources)
+/[Aa]ssets/TextMesh Pro/
+
 # Keystore files (uncomment if you want to ignore)
 # *.keystore
 # *.jks
