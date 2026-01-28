@@ -67,7 +67,11 @@ namespace Scripts.Managers
         public void RestartGame()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // Exit current view first to clean up car, stages, etc.
+            var currentView = GetCurrentView();
+            if (currentView != null)
+                currentView.ExitView();
+            EnterView<GameView>();
         }
 
         public void OpenPausePopup(Action onClose = null, Action onPopupShowed = null)

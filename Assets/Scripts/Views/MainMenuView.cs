@@ -27,13 +27,10 @@ namespace Scripts.Views
 
             var content = Utils.FindGameObject("Content", gameObject);
             var homeTabs = Utils.FindGameObject("HomeTabs", gameObject);
-            var settingsButton = Utils.FindGameObject("SettingsButton", gameObject).GetComponent<Button>();
+            var settingsButton = Utils.FindGameObject("SettingsButton", gameObject);
             content.GetComponent<RectTransform>().SetHeight(Device.Height * 0.72f);
-            settingsButton.onClick.RemoveAllListeners();
-            settingsButton.onClick.AddListener(() =>
-            {
-                SettingsPopup.Create();
-            });
+            // Hide settings button in main menu (only show in game view)
+            settingsButton.SetActive(false);
             _subViews = new List<View>();
             foreach (Transform tabItem in content.transform)
             {

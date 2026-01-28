@@ -1,6 +1,7 @@
 using Assets.Scripts.Tests;
 using Scripts.Managers;
 using Scripts.UI;
+using Scripts.UI.Popups;
 using ScriptsPhysicsAndMechanics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -79,6 +80,19 @@ namespace Scripts.Views
 
             _gameOverView = Utils.FindGameObject("GameOverView", gameObject).GetComponent<GameOverView>();
             _gameOverView.ExitView();
+
+            // Show and setup settings button in game view
+            var settingsButton = Utils.FindGameObject("SettingsButton", gameObject);
+            if (settingsButton != null)
+            {
+                settingsButton.SetActive(true);
+                var button = settingsButton.GetComponent<Button>();
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() =>
+                {
+                    SettingsPopup.Create();
+                });
+            }
 
             LoadingPopup.CloseAnim();
         }
