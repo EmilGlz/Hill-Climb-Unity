@@ -65,19 +65,16 @@ public static class Utils
 
     public static void HideCoin(GameObject coin)
     {
-        var nameBefore = coin.name;
-        if (coin.name == "Collected")
-            return;
+        // Note: Caller already set coin.name = "Collected" to prevent double-collection
         var startPos = coin.transform.position;
         var sr = coin.GetComponent<SpriteRenderer>();
         var currentPosY = coin.transform.position.y;
-        coin.name = "Collected";
         sr.DOColor(new Color(1, 1, 1, 0), 0.5f);
         coin.transform.DOMoveY(currentPosY + 2f, 0.5f).OnComplete(() =>
         {
             coin.SetActive(false);
             coin.transform.position = startPos;
-            coin.name = nameBefore;
+            // Name will be restored when coin is shown again via ShowCollectable
         });
     }
 

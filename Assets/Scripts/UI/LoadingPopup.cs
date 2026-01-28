@@ -39,17 +39,28 @@ namespace Scripts.UI
             }
         }
 
-        public static async void CloseAnim()
+        public static void CloseAnim()
         {
             var instance = Utils.FindGameObject("LoadingPopup", UIController.instance.PopupCanvas.gameObject);
             if (instance == null)
                 return;
-            var ms = (DateTime.Now - _startTime).Milliseconds;
-            if (ms < MinimumStayingTimeInMs)
-                await Task.Delay(MinimumStayingTimeInMs - ms);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // In WebGL, just destroy immediately (DOTween animations don't work reliably)
+            Dispose();
+#else
+            var ms = (DateTime.Now - _startTime).TotalMilliseconds;
+            var delayTime = ms < MinimumStayingTimeInMs ? (MinimumStayingTimeInMs - ms) / 1000f : 0f;
+
             var img = instance.GetComponent<Image>();
             img.color = new Color(0, 0, 0, 1);
-            img.DOColor(new Color(0, 0, 0, 0), AnimTime).OnComplete(Dispose);
+
+            // Use DOTween's delay instead of Task.Delay
+            DOVirtual.DelayedCall((float)delayTime, () =>
+            {
+                img.DOColor(new Color(0, 0, 0, 0), AnimTime).OnComplete(Dispose);
+            });
+#endif
         }
 
         public static void Dispose()

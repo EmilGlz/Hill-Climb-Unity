@@ -7,11 +7,18 @@ public class TireDetector : MonoBehaviour
     {
         if (collision.gameObject != null && collision.gameObject.CompareTag("Coin500"))
         {
+            // Check if already collected to prevent double-counting from multiple colliders
+            if (collision.gameObject.name == "Collected")
+                return;
+            collision.gameObject.name = "Collected"; // Mark immediately before invoking
             Settings.OnCoinCollected?.Invoke(500);
             Utils.HideCoin(collision.gameObject);
         }
         if (collision.gameObject != null && collision.gameObject.CompareTag("Fuel"))
         {
+            if (collision.gameObject.name == "Collected")
+                return;
+            collision.gameObject.name = "Collected";
             Settings.OnFuelCollected?.Invoke();
             Utils.HideCoin(collision.gameObject);
         }
