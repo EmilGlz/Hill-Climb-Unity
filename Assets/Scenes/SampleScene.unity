@@ -179,7 +179,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
-  m_sharedMaterial: {fileID: -3460973246875789913, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
+  m_sharedMaterial: {fileID: 5647851760506306306, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4847,7 +4847,7 @@ MonoBehaviour:
   m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
-  m_sharedMaterial: {fileID: -3460973246875789913, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
+  m_sharedMaterial: {fileID: 5647851760506306306, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6815,7 +6815,7 @@ MonoBehaviour:
     +500 coins!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
-  m_sharedMaterial: {fileID: -3460973246875789913, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
+  m_sharedMaterial: {fileID: 5647851760506306306, guid: 8e1b7ed16317b6b43b6d8d0f7cb5ec40, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

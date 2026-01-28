@@ -28,12 +28,12 @@ namespace Scripts.Managers
         private const string _brakePedalSpritePath = "Sprites/pedal-brake-normal";
         private const string _brakePedalPressedSpritePath = "Sprites/pedal-brake-pressed";
 
-        private async void Start()
+        private void Start()
         {
-            _gasPedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalPressedSpritePath);
-            _gasPedalSprite = await ResourceHelper.LoadSpriteAsync(_gasPedalSpritePath);
-            _brakePedalSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalSpritePath);
-            _brakePedalPressedSprite = await ResourceHelper.LoadSpriteAsync(_brakePedalPressedSpritePath);
+            _gasPedalPressedSprite = Resources.Load<Sprite>(_gasPedalPressedSpritePath);
+            _gasPedalSprite = Resources.Load<Sprite>(_gasPedalSpritePath);
+            _brakePedalSprite = Resources.Load<Sprite>(_brakePedalSpritePath);
+            _brakePedalPressedSprite = Resources.Load<Sprite>(_brakePedalPressedSpritePath);
         }
 
         public void PedalPressed(GameObject pedalImage, bool isGas)

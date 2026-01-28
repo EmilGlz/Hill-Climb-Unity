@@ -34,20 +34,29 @@ namespace Scripts.Views
 
         public override async Task EnterView()
         {
+            Debug.Log("GameView.EnterView START");
             LoadingPopup.Show();
+            Debug.Log("LoadingPopup shown");
             _budgetBefore = Settings.User.budget;
             _fuelController = new FuelController();
+            Debug.Log("FuelController created");
             await base.EnterView();
+            Debug.Log("base.EnterView completed");
 
+            Debug.Log("Finding buttons");
             var gasButton = Utils.FindGameObject("GasButton", gameObject);
             var brakeButton = Utils.FindGameObject("BrakeButton", gameObject);
 
+            Debug.Log("Instantiating car");
             _car = LevelUtils.InstantiateCar(Settings.User.currentSelectedCar);
+            Debug.Log("Car instantiated");
             var carController = _car.GetComponent<VehicleController>();
             carController.Init(Settings.User.currentSelectedCar, OnGroundStartReached, OnGroundEndReached, gasButton, brakeButton);
+            Debug.Log("Car initialized");
             var currentGravity = Settings.User.currentSelectedStage.gravityScale;
             _car.GetComponent<Rigidbody2D>().gravityScale = currentGravity;
 
+            Debug.Log("Creating stages");
             _stages = new List<GameObject>();
             for (int i = 0; i < 2; i++)
             {
@@ -55,6 +64,7 @@ namespace Scripts.Views
                 newStage.name = "Stage " + i;
                 _stages.Add(newStage);
             }
+            Debug.Log("Stages created");
             CurrentStage = _stages[0];
             LevelUtils.UpdateSkyBackground(Settings.User.currentSelectedStage);
             _stages[0].transform.position = Vector3.zero;
@@ -80,7 +90,9 @@ namespace Scripts.Views
             _gameOverView = Utils.FindGameObject("GameOverView", gameObject).GetComponent<GameOverView>();
             _gameOverView.ExitView();
 
+            Debug.Log("About to close loading popup");
             LoadingPopup.CloseAnim();
+            Debug.Log("GameView.EnterView COMPLETE");
         }
 
         private void FillUpFuel()

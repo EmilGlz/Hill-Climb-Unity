@@ -15,10 +15,16 @@ public static class ResourceHelper
 
     public static async Task<GameObject> InstantiatePrefabAsync(string prefabPath, Transform parent)
     {
+        // Use synchronous loading for WebGL to avoid async/await issues
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            return InstantiatePrefab(prefabPath, parent);
+        }
+
         ResourceRequest request = Resources.LoadAsync(prefabPath, typeof(GameObject));
 
         while (!request.isDone)
-            await Task.Yield(); // Yield to allow Unity to load the resource asynchronously
+            await Task.Delay(1);
 
         GameObject prefab = request.asset as GameObject;
 
@@ -33,10 +39,16 @@ public static class ResourceHelper
     }
     public static async Task<Sprite> LoadSpriteAsync(string spritePath)
     {
+        // Use synchronous loading for WebGL to avoid async/await issues
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            return Resources.Load<Sprite>(spritePath);
+        }
+
         ResourceRequest request = Resources.LoadAsync<Sprite>(spritePath);
-        await Task.Yield(); 
+
         while (!request.isDone)
-            await Task.Yield(); 
+            await Task.Delay(1);
 
         return (Sprite)request.asset;
     }

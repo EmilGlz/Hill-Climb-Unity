@@ -1,10 +1,14 @@
 using Scripts.Managers;
 using UnityEngine;
 
-public static class Device 
+public static class Device
 {
-    public static int Width => (int)UIController.instance.PopupCanvas.GetComponent<RectTransform>().GetWidth();
-    public static int Height => (int)UIController.instance.PopupCanvas.GetComponent<RectTransform>().GetHeight();
+    public static int Width => UIController.instance != null && UIController.instance.PopupCanvas != null
+        ? (int)UIController.instance.PopupCanvas.GetComponent<RectTransform>().GetWidth()
+        : Screen.width;
+    public static int Height => UIController.instance != null && UIController.instance.PopupCanvas != null
+        ? (int)UIController.instance.PopupCanvas.GetComponent<RectTransform>().GetHeight()
+        : Screen.height;
     public static bool IsAndroid => Application.platform == RuntimePlatform.Android;
     public static bool IsIOS => Application.platform == RuntimePlatform.IPhonePlayer;
     public static bool IsMobile => IsIOS || IsAndroid;
